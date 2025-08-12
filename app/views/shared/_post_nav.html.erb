@@ -1,0 +1,15 @@
+
+<%= stylesheet_link_tag "home_index" %>
+<header>
+  <nav>
+    <div class="logo">
+      <a href="/homes">Instagram</a>
+    </div>
+      <ul>
+        <li><a href="/homes">Home</a></li>
+        <li><a href="/posts/new">Create post</a></li>
+        <li><a href="/posts">My Posts</a></li>
+        <li><a href="/users/<%= @current_user.id%>">Profile</a></li>
+      </ul>
+  </nav>
+</header>

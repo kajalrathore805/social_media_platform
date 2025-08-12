@@ -1,0 +1,37 @@
+
+<%= render  "shared/post_nav"%>
+
+<div class='posts-container d-flex flex-column mt-3 p-3 container-sm align-items-center' style="gap: 30px">
+  <% @posts.each do |post|%>
+    <div class="post-container d-flex flex-column p-3 border rounded shadow-sm w-100" style="gap: 15px; max-width: 600px;">
+      <div class="user-detail d-flex align-items-center border rounded shadow-sm w-100" style="gap: 10px">  		
+      	<div class="user-image ">
+          <%= image_tag post.user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '60', height: '60' %>   
+        </div>
+  			<div class="user-name fw-semibold">
+          <%= post.user.name %>   
+        </div>
+      </div>	
+  		<div class="post-detail"></div>
+      <div class="post-title fs-4 fw-semibold">
+        				<%= link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'%>
+  			</div>
+  			<div class="post-images d-flex" style="gap: 5px">
+          <% post.images.each do |image| %>
+    				<div class="post-image">
+              <%= image_tag image.variant(resize_to_limit: [300,300]),size:"100x100" %>
+            </div>
+          <% end %>
+  			</div>
+      <div class="post-action mt-2">
+        
+        <%= link_to  do %>
+          <i class="bi bi-heart"></i>
+        <% end %>
+        <%= link_to  do %>
+          <i class="bi bi-chat"></i>
+        <% end %>
+      </div>
+  	</div>
+  <% end %>
+</div>

@@ -1,0 +1,51 @@
+
+<%= render  "shared/post_nav"%>
+
+<div class="container d-flex justify-content-center mt-5">
+  <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+    <h2 class="text-dark mb-4 text-center"><%= @post.user.name%> </h2>
+      <%= form_with  do |form|%>
+
+        <div class="mb-3 text-center">
+          <% if @post.images.attached?%>
+          <% @post.images.each do |image|%>
+          <%= image_tag  image.variant(resize_to_limit: [300,300]),size:'150x130'%>
+          <% end %>
+          <% else %>
+          <p>No images found</p>
+          <% end %>
+        </div>
+
+        <%= link_to [@post, @post.likes.build],class:"bi bi-hand-thumbs-up", data: { turbo_method: :post, turbo_confirm: "likes successfully?" } do %>
+        <% end %>
+        <% @post.likes.each do |like|%>
+        <%= link_to  [like.post,like], class: 'bi bi-hand-thumbs-down',
+          data: { turbo_method: :delete, turbo_confirm: "Unlike?" } do %>
+        <% end %>
+         <% end %>
+
+        <%= link_to post_comments_path(@post) do %>
+          <i class="bi bi-chat"></i>
+        <% end %>
+
+        <div class="mb-3 text-center">
+          <%= form.label "title:"%>
+          <%= @post.title %>
+        </div>
+
+        <div class="mb-3 text-center">
+          <%= form.label "body:"%>
+          <%= @post.body%>
+        </div>
+        
+        <ul class="list-inline text-center">
+          <li class="list-inline-item"><%= link_to "Edit" , edit_post_path(@post),class: "btn btn-secondary inline"%></li>
+          <li class="list-inline-item "><%= link_to "Delete" , post_path(@post), data: { turbo_method: :delete,turbo_confirm: "Are you sure?"},class:'btn btn-secondary' %></li>
+        </ul>
+      <% end %>
+  </div>
+</div>
+
+
+
+    

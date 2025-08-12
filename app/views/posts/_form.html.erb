@@ -1,0 +1,27 @@
+<%= render  "shared/post_nav"%>
+<div class="container d-flex justify-content-center mt-5">
+	<div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+    <h2 class="text-dark mb-4 text-center">Edit Post</h2>
+
+		<%= form_with model: @post do |form|%>
+
+			<div class="mb-3">
+        <%= form.hidden_field :user_id, value:@current_user.id  %>
+      </div>
+
+			<div class='mb-3'>
+				<%= form.label :title%>
+				<%= form.text_field :title, class:'form-control'%>
+			</div>
+
+			<div class='mb-3'>
+				<%= form.label :body%>
+				<%= form.text_field :body, class:'form-control'%>
+			</div>
+
+			<div class='mb-3 text-center'>
+				<%= form.submit "submit", class:'btn btn-secondary'%>
+			</div>
+		<% end %>
+		</div>
+</div>
