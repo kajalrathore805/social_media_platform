@@ -14,8 +14,8 @@
       </div>	
   		<div class="post-detail"></div>
       <div class="post-title fs-4 fw-semibold">
-        				<%= link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'%>
-  			</div>
+        <%= link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'%>
+  		</div>
   			<div class="post-images d-flex" style="gap: 5px">
           <% post.images.each do |image| %>
     				<div class="post-image">
@@ -24,14 +24,35 @@
           <% end %>
   			</div>
       <div class="post-action mt-2">
-        
-        <%= link_to  do %>
-          <i class="bi bi-heart"></i>
+
+        <% if post.likes.exists?(user_id: @current_user.id)%>
+        <%= link_to  post_likes_path(post, post.likes.find_by(user: @current_user)), data: { turbo_method: :delete, turbo_confirm: "Unlike?"}, class: 'bi bi-hand-thumbs-down text-decoration-none text-dark' do %>
         <% end %>
-        <%= link_to  do %>
-          <i class="bi bi-chat"></i>
+
+        <% else %>
+        <%= link_to  post_likes_path(post), method: :post, class:"like-btn" do %>
+          <i class="bi bi-hand-thumbs-up text-decoration-none text-dark"></i>
+        <% end %>
+        <% end %>
+        
+        <%= link_to post_comments_path(post) ,data: { turbo_method: :get} do %>
+          <i class="bi bi-chat text-decoration-none text-dark"></i>
         <% end %>
       </div>
   	</div>
   <% end %>
 </div>
+
+<script>
+$(document).ready(function(){
+ 
+  $(".like-btn").click(function(){
+   event.preventDefault();
+   var urls = $(this).attr('href')
+    
+    $.ajax({url: urls, type:"post", success: function(){
+      alert('Liked successfully');
+    }});
+  });
+});
+</script>

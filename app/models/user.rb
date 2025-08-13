@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_one_attached :image
   has_many :posts
   has_many :likes, dependent: :destroy
-  
+ 
 	validates :name,:email,:password,:phone,:bio, presence: true
 	
  	before_validation :normalize_name, on: :create
@@ -24,6 +24,11 @@ class User < ApplicationRecord
       errors.add :password, "must include at least one lowercase letter, one uppercase letter, one digit, and be a minimum of 5 characters."
     end
   end
+
+#   def liked?(post)
+#   likes.exists?(post_id: post.id)
+# end
+
 
   private
     def normalize_name

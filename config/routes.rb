@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users, :session, :homes
 
   resources :posts do
-    resources :comments, :likes
+    resources :comments
+    resources  :likes, only: [:create]
   end
 end

@@ -1,14 +1,17 @@
 
+<div class="container d-flex justify-content-center mt-5">
+  <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+    <h3 class="text-dark mb-4 text-center">Comment form</h3>
+    <%= form_with model: [ @post, @post.comments.build ] do |form| %>
 
-
-<%= form_with model: [ @post, @post.comments.build ] do |form| %>
-
-  <%= form.hidden_field :commenter, value:@current_user.id  %>
-  <p>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+    <%= form.hidden_field :commenter, value:@current_user.id  %>
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+  </div>
+</div>

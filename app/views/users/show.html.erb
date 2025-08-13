@@ -1,6 +1,6 @@
 
 <%= render  "shared/post_nav"%>
-<%= render "layouts/flash" %>
+
 
 <div class="container d-flex justify-content-center mt-5">
   <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
@@ -14,7 +14,7 @@
         </div>
 
          <div class="mb-3 list-inline text-center">
-        <li class="list-inline-item">posts :<%= @current_user.posts.count(:id)%></li>
+        <li class="list-inline-item">posts :<%= @current_user.posts_count%></li>
         <li class="list-inline-item">Followers :<%= @current_user.posts.count(:id)%></li>
         <li class="list-inline-item">Following :<%= @current_user.posts.count(:id)%></li>
         </div>

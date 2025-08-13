@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
     if @user.valid?
       session[:user_id] = @user.id
-      redirect_to user_path(@user), success: "Your Account was Created Successfully!"
+      redirect_to new_session_path, success: "Your Account was Created Successfully! you can login now"
     else
       flash[:error] = @user.errors.full_messages
         redirect_to new_user_path

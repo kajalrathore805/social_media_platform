@@ -1,24 +1,29 @@
 class SessionController < ApplicationController
-	skip_before_action :auhenticate_user, only: [:create, :new]
+ skip_before_action :auhenticate_user, only: [:create, :new]
 
-	def new
+  def new
+    @user = User.new 
+  end
 
-	end
-	
-	def create
-		@user = User.find_by(email: params[:email])
+  def create
+    input = params[:user][:combined_value]
+    password = params[:user][:password]
 
-		if @user && @user.authenticate(params[:password])
-			session[:user_id] = @user.id
-			redirect_to user_path(@user)
-		else
-			render :new
-		end
-	end
+    
+    @user = User.find_by(email: input) || User.find_by(phone: input)
 
-	def destroy
-    session.delete :user_id
-    # flash[:alert] = "You have been signed out!"
+    if @user && @user.authenticate(password)
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
+    else
+      flash.now[:alert] = "Invalid email/phone or password"
+      @user = User.new 
+      render :new
+    end
+  end
+
+  def destroy
+    session.delete(:user_id)
     redirect_to new_session_path, success: "You have been signed out!"
   end
 end

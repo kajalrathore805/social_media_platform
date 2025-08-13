@@ -1,9 +1,10 @@
 
 
   
+    <div class="p-2 border rounded shadow bg-white text-center" style="min-width: 300px;">
   <p>
     <strong>Commenter:</strong>
-    <%= comment.commenter %>
+    <%= @current_user.name %>
   </p>
 
   <p>
@@ -12,9 +13,10 @@
   </p>
 
   <p>
-    <%= link_to "Destroy Comment", [comment.post, comment], data: {
+    <%= link_to "Delete", [comment.post, comment],class:"btn btn-sm btn-danger", data: {
                   turbo_method: :delete,
                   turbo_confirm: "Are you sure?"
                 } %>
   </p>
+  </div>
 

@@ -16,17 +16,22 @@
           <% end %>
         </div>
 
-        <%= link_to [@post, @post.likes.build],class:"bi bi-hand-thumbs-up", data: { turbo_method: :post, turbo_confirm: "likes successfully?" } do %>
-        <% end %>
-        <% @post.likes.each do |like|%>
-        <%= link_to  [like.post,like], class: 'bi bi-hand-thumbs-down',
-          data: { turbo_method: :delete, turbo_confirm: "Unlike?" } do %>
-        <% end %>
-         <% end %>
+        <div class="post-action mt-2">
 
-        <%= link_to post_comments_path(@post) do %>
-          <i class="bi bi-chat"></i>
+        <% if @post.likes.exists?(user_id: @current_user.id)%>
+        <%= link_to  post_like_path(@post, @post.likes.find_by(user: @current_user)), data: { turbo_method: :delete, turbo_confirm: "Unlike?"}, class: 'bi bi-hand-thumbs-down text-decoration-none text-dark' do %>
         <% end %>
+
+        <% else %>
+        <%= link_to  post_likes_path(@post), method: :post, class:"like-btn" do %>
+          <i class="bi bi-hand-thumbs-up text-decoration-none text-dark"></i>
+        <% end %>
+        <% end %>
+        
+        <%= link_to post_comments_path(@post) ,data: { turbo_method: :get} do %>
+          <i class="bi bi-chat text-decoration-none text-dark"></i>
+        <% end %>
+      </div>
 
         <div class="mb-3 text-center">
           <%= form.label "title:"%>
@@ -46,6 +51,19 @@
   </div>
 </div>
 
+<script>
+$(document).ready(function(){
+ 
+  $(".like-btn").click(function(){
+   event.preventDefault();
+   var urls = $(this).attr('href')
+    
+    $.ajax({url: urls, type:"post", success: function(){
+      alert('Liked successfully');
+    }});
+  });
+});
+</script>
 
 
     
