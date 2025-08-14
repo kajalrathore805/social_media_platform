@@ -12,6 +12,7 @@ default: &default
   password: Root@1234
   host: localhost
   encoding: utf8
+  port: 3307
 
 development:
   <<: *default
