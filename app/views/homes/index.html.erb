@@ -5,17 +5,21 @@
   <% @posts.each do |post|%>
     <div class="post-container d-flex flex-column p-3 border rounded shadow-sm w-100" style="gap: 15px; max-width: 600px;">
       <div class="user-detail d-flex align-items-center border rounded shadow-sm w-100" style="gap: 10px">  		
-      	<div class="user-image ">
+      	<div class="user-image">
           <%= image_tag post.user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '60', height: '60' %>   
         </div>
   			<div class="user-name fw-semibold">
           <%= post.user.name %>   
         </div>
+        <div class="follow-btn" style="padding-left: 55%"> 
+           <%= link_to  user_follows_path(post.user.id), data: { turbo_method: :post, turbo_confirm: "follow?"}, class:"btn btn-sm btn-secondary" do %>follow
+        <% end %>
+        </div>
       </div>	
-  		<div class="post-detail"></div>
-      <div class="post-title fs-4 fw-semibold">
-        <%= link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'%>
-  		</div>
+  		<div class="post-detail">
+        <div class="post-title fs-4 fw-semibold">
+          <%= link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'%>
+    		</div>
   			<div class="post-images d-flex" style="gap: 5px">
           <% post.images.each do |image| %>
     				<div class="post-image">
@@ -23,10 +27,11 @@
             </div>
           <% end %>
   			</div>
+      </div>
       <div class="post-action mt-2">
 
         <% if post.likes.exists?(user_id: @current_user.id)%>
-        <%= link_to  post_likes_path(post, post.likes.find_by(user: @current_user)), data: { turbo_method: :delete, turbo_confirm: "Unlike?"}, class: 'bi bi-hand-thumbs-down text-decoration-none text-dark' do %>
+        <%= link_to post_like_path(post, post.likes.find_by(user: @current_user)), data: { turbo_method: :delete, turbo_confirm: "Unlike?"}, class: 'bi bi-hand-thumbs-down text-decoration-none text-dark' do %>
         <% end %>
 
         <% else %>
@@ -36,8 +41,12 @@
         <% end %>
         
         <%= link_to post_comments_path(post) ,data: { turbo_method: :get} do %>
-          <i class="bi bi-chat text-decoration-none text-dark"></i>
+          <i class="bi bi-chat text-decoration-none text-dark" style="padding-left: 58px;"></i>
         <% end %>
+        <div class="post-action mt-0">
+          <span style="font-size: 15px;">Likes:<%= post.likes_count %></span>
+          <span style="font-size: 15px;">Comments:<%= post.comments_count %></span>
+        </div>
       </div>
   	</div>
   <% end %>
