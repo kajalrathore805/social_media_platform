@@ -12,8 +12,13 @@
           <%= post.user.name %>   
         </div>
         <div class="follow-btn" style="padding-left: 55%"> 
-           <%= link_to  user_follows_path(post.user.id), data: { turbo_method: :post, turbo_confirm: "follow?"}, class:"btn btn-sm btn-secondary" do %>follow
-        <% end %>
+          <% if post.user.followers.exists?(id: @current_user.id)%>
+            <%= link_to  user_follows_path(post.user.id), data: { turbo_method: :delete, turbo_confirm: "Unfollow?"}, class:"btn btn-sm btn-danger" do %>Unfollow
+            <% end %>
+          <% else %>
+            <%= link_to  user_follows_path(post.user.id), data: { turbo_method: :post, turbo_confirm: "follow?"}, class:"btn btn-sm btn-secondary" do %>follow
+            <% end %>
+          <% end %>
         </div>
       </div>	
   		<div class="post-detail">
@@ -28,26 +33,7 @@
           <% end %>
   			</div>
       </div>
-      <div class="post-action mt-2">
-
-        <% if post.likes.exists?(user_id: @current_user.id)%>
-        <%= link_to post_like_path(post, post.likes.find_by(user: @current_user)), data: { turbo_method: :delete, turbo_confirm: "Unlike?"}, class: 'bi bi-hand-thumbs-down text-decoration-none text-dark' do %>
-        <% end %>
-
-        <% else %>
-        <%= link_to  post_likes_path(post), method: :post, class:"like-btn" do %>
-          <i class="bi bi-hand-thumbs-up text-decoration-none text-dark"></i>
-        <% end %>
-        <% end %>
-        
-        <%= link_to post_comments_path(post) ,data: { turbo_method: :get} do %>
-          <i class="bi bi-chat text-decoration-none text-dark" style="padding-left: 58px;"></i>
-        <% end %>
-        <div class="post-action mt-0">
-          <span style="font-size: 15px;">Likes:<%= post.likes_count %></span>
-          <span style="font-size: 15px;">Comments:<%= post.comments_count %></span>
-        </div>
-      </div>
+      <%= render "posts/like_button", post: post, current_user: @current_user %>
   	</div>
   <% end %>
 </div>
@@ -55,8 +41,8 @@
 <script>
 $(document).ready(function(){
  
-  $(".like-btn").click(function(){
-   event.preventDefault();
+  $(".like-btn").click(function(e){
+   e.preventDefault();
    var urls = $(this).attr('href')
     
     $.ajax({url: urls, type:"post", success: function(){

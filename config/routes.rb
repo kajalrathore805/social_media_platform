@@ -5,12 +5,15 @@ Rails.application.routes.draw do
   # post "users/:user_id/follows", to: "follows#create"
 
   resources :users do
-    resources :follows, only: [:create,:destroy]
+    resource :follows, only: [:create,:destroy]
    
   end
 
   resources :posts do
-    resources :comments, only: [:create,:destroy]
-    resources  :likes, only: [:create,:destroy]
+    member do 
+      post  :like
+      delete  :unlike
+    end
+    resources :comments
   end
 end

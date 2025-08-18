@@ -1,12 +1,24 @@
 class FollowsController < ApplicationController
-	def create
-		@user = User.find(params[:user_id])
-		@follower = @user.followers.create(follow_params)
-    redirect_back_or_to  homes_path
+  def create
+    @user = User.find(params[:user_id]) 
+    @follow = Follow.new(user_id: current_user.id,following_id: @user.id)
+
+    if @follow.save
+      redirect_back fallback_location: homes_path
+    else
+      redirect_back fallback_location: homes_path
+    end
   end
 
-  private
-  def follow_params
-  	 params.require(:follow).permit(:user_id, :following_id)
+   def destroy
+    @user = User.find(params[:user_id])
+    @follow = Follow.find_by(user_id: current_user.id, following_id: @user.id)
+
+    if @follow
+      @follow.destroy
+      redirect_back fallback_location: homes_path
+    else
+      redirect_back fallback_location: homes_path
+    end
   end
 end

@@ -1,10 +1,25 @@
 class PostsController < ApplicationController
-
+	before_action :set_post, only: [:show, :like, :unlike]
 	def index
 		@posts = current_user.posts
 	end
 
 	def show
+		@post = Post.find(params[:id])
+	end
+
+	def like
+		current_user.likes.create(post: @post)
+    redirect_back fallback_location: posts_path, notice: "You liked this post!"
+	end
+
+	def unlike
+		like = current_user.likes.find_by(post: @post)
+    like&.destroy
+    redirect_back fallback_location: posts_path, notice: "You unliked this post!"
+	end
+
+	def set_post
 		@post = Post.find(params[:id])
 	end
 
@@ -40,10 +55,6 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 		@post.destroy
 		redirect_to posts_path
-	end
-
-	def post
-		render 'comments/form'
 	end
 
 	private
