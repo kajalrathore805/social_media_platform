@@ -16,7 +16,8 @@
           <% end %>
         </div>
 
-         <%= render "like_button", post: @post, current_user: @current_user %>
+         <%= render "like_button", post: @post%>
+           <%= render "posts/post_action",post: @post%>
       
         <div class="mb-3 text-center">
           <%= form.label "title:"%>

@@ -1,21 +1,10 @@
-<div class="post-action mt-2">
-
-        <% if post.likes.exists?(user_id: current_user.id)%>
-        <%= link_to  unlike_post_path(post), data: { turbo_method: :delete} do %>
-         <i class="bi bi-hand-thumbs-down text-decoration-none text-dark"></i>
-        <% end %>
-        
-        <% else %>
-        <%= link_to  like_post_path(post), data: { turbo_method: :post} do %>
-          <i class="bi bi-hand-thumbs-up text-decoration-none text-dark"></i>
-        <% end %>
-        <% end %>
-        
-        <%= link_to post_comments_path(post) ,data: { turbo_method: :get} do %>
-          <i class="bi bi-chat text-decoration-none text-dark" style="padding-left: 58px;"></i>
-        <% end %>
-        <div class="post-action mt-0">
-          <span style="font-size: 15px;">Likes:<%= post.likes_count %></span>
-          <span style="font-size: 15px;">Comments:<%= post.comments_count %></span>
-        </div>
-      </div>
+<% if post.likes.exists?(user_id: @current_user.id)%>
+  <%= link_to  "/unlike?post_id=#{post.id}", data: { turbo: false, turbo_method: :delete}, class:"unlike-btn" do %>
+   <i class="bi bi-hand-thumbs-down text-decoration-none text-dark"></i>
+  <% end %>
+  
+<% else %>
+  <%= link_to  "/like?post_id=#{post.id}", data: { turbo: false, turbo_method: :post},class:"like-btn" do %>
+    <i class="bi bi-hand-thumbs-up text-decoration-none text-dark"></i>
+  <% end %>
+<% end %>

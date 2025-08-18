@@ -10,13 +10,13 @@ class PostsController < ApplicationController
 
 	def like
 		current_user.likes.create(post: @post)
-    redirect_back fallback_location: posts_path, notice: "You liked this post!"
+    redirect_back fallback_location: posts_path
 	end
 
 	def unlike
 		like = current_user.likes.find_by(post: @post)
-    like&.destroy
-    redirect_back fallback_location: posts_path, notice: "You unliked this post!"
+	  like&.destroy
+	  redirect_back fallback_location: posts_path
 	end
 
 	def set_post

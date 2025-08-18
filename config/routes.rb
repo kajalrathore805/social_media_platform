@@ -8,12 +8,15 @@ Rails.application.routes.draw do
     resource :follows, only: [:create,:destroy]
    
   end
+  # resources :posts do
+  #   resource :comments, only: [:create,:destroy]
+  #   resource :likes, only: [:create,:destroy]
+  # end
 
   resources :posts do
-    member do 
-      post  :like
-      delete  :unlike
-    end
     resources :comments
   end
+
+  post "like", to: "likes#create"
+  delete "unlike", to: "likes#destroy"
 end

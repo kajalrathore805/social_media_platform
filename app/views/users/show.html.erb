@@ -15,8 +15,8 @@
 
          <div class="mb-3 list-inline text-center">
         <li class="list-inline-item">posts :<%= @current_user.posts_count%></li>
-        <li class="list-inline-item">Followers :<%= @current_user.posts.count(:id)%></li>
-        <li class="list-inline-item">Following :<%= @current_user.posts.count(:id)%></li>
+        <li class="list-inline-item">Followers :<%= @current_user.follows_count%></li>
+        <li class="list-inline-item">Following :<%= @current_user.follows_count%></li>
         </div>
 
         <div class="mb-3 text-center">

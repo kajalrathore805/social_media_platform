@@ -1,10 +1,13 @@
 class FollowsController < ApplicationController
+skip_before_action :verify_authenticity_token, only: [:create,:destroy]
+
+
   def create
     @user = User.find(params[:user_id]) 
     @follow = Follow.new(user_id: current_user.id,following_id: @user.id)
 
     if @follow.save
-      redirect_back fallback_location: homes_path
+      render partial: 'users/follow_button', layout: false
     else
       redirect_back fallback_location: homes_path
     end
@@ -16,7 +19,7 @@ class FollowsController < ApplicationController
 
     if @follow
       @follow.destroy
-      redirect_back fallback_location: homes_path
+      render partial: 'users/follow_button', layout: false
     else
       redirect_back fallback_location: homes_path
     end

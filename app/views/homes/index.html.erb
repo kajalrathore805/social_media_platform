@@ -11,15 +11,9 @@
   			<div class="user-name fw-semibold">
           <%= post.user.name %>   
         </div>
-        <div class="follow-btn" style="padding-left: 55%"> 
-          <% if post.user.followers.exists?(id: @current_user.id)%>
-            <%= link_to  user_follows_path(post.user.id), data: { turbo_method: :delete, turbo_confirm: "Unfollow?"}, class:"btn btn-sm btn-danger" do %>Unfollow
-            <% end %>
-          <% else %>
-            <%= link_to  user_follows_path(post.user.id), data: { turbo_method: :post, turbo_confirm: "follow?"}, class:"btn btn-sm btn-secondary" do %>follow
-            <% end %>
-          <% end %>
-        </div>
+    
+        <%= render "users/follow_button"%>
+
       </div>	
   		<div class="post-detail">
         <div class="post-title fs-4 fw-semibold">
@@ -32,22 +26,33 @@
             </div>
           <% end %>
   			</div>
+
       </div>
-      <%= render "posts/like_button", post: post, current_user: @current_user %>
-  	</div>
+      <%= render "posts/post_action", post: post%>
+     
+    </div>
   <% end %>
 </div>
 
-<script>
-$(document).ready(function(){
- 
-  $(".like-btn").click(function(e){
+<script> 
+  $(document).on('click', ".like-btn, .unlike-btn", function(e){
    e.preventDefault();
-   var urls = $(this).attr('href')
-    
-    $.ajax({url: urls, type:"post", success: function(){
-      alert('Liked successfully');
+   target = $(this)
+   var urls = target.attr('href')
+   var method = target.attr('data-turbo-method')
+    $.ajax({url: urls, type: method, success: function(res){
+      target.closest('.post-action').replaceWith(res)
     }});
   });
-});
+
+
+  $(document).on('click', ".follow-btn, .unfollow-btn", function(e){
+   e.preventDefault();
+   target = $(this)
+   var urls = target.attr('href')
+   var method = target.attr('data-turbo-method')
+    $.ajax({url: urls, type: method, success: function(res){
+      target.closest('.user-action').replaceWith(res)
+    }});
+  });
 </script>

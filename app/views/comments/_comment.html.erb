@@ -1,22 +1,22 @@
 
-
-  
     <div class="p-2 border rounded shadow bg-white text-center" style="min-width: 300px;">
   <p>
     <strong>Commenter:</strong>
-    <%= comment.commenter%>
+  <%= User.find(comment.commenter).name %>
+
   </p>
 
   <p>
     <strong>Comment:</strong>
     <%= comment.body %>
   </p>
-
   <p>
+    <% if comment.commenter ==  @current_user.id%>
     <%= link_to "Delete", [comment.post, comment],class:"btn btn-sm btn-danger", data: {
                   turbo_method: :delete,
                   turbo_confirm: "Are you sure?"
                 } %>
+  <% end %>
   </p>
   </div>
 
