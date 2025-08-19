@@ -2,21 +2,19 @@
 <%= render  "shared/post_nav"%>
 
 <div class="container d-flex justify-content-center mt-5">
-  <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+  <div class="p-4 border rounded shadow bg-white" style="min-width: 500px;">
     <h2 class="text-dark mb-4 text-center"><%= @post.user.name%> </h2>
       <%= form_with  do |form|%>
 
         <div class="mb-3 text-center">
           <% if @post.images.attached?%>
           <% @post.images.each do |image|%>
-          <%= image_tag  image.variant(resize_to_limit: [300,300]),size:'150x130'%>
+          <%= image_tag  image.variant(resize_to_limit: [300,300]),size:'150x150'%>
           <% end %>
           <% else %>
           <p>No images found</p>
           <% end %>
         </div>
-
-         <%= render "like_button", post: @post%>
            <%= render "posts/post_action",post: @post%>
       
         <div class="mb-3 text-center">
@@ -37,19 +35,4 @@
   </div>
 </div>
 
-<!-- <script>
-$(document).ready(function(){
- 
-  $(".like-btn").click(function(){
-   event.preventDefault();
-   var urls = $(this).attr('href')
-    
-    $.ajax({url: urls, type:"post", success: function(){
-      alert('Liked successfully');
-    }});
-  });
-});
-</script> -->
-
-
-    
+    <%= javascript_include_tag "like_btn" %>

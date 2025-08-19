@@ -3,21 +3,17 @@
 
 <div class='posts-container d-flex flex-column mt-3 p-3 container-sm align-items-center' style="gap: 30px">
   <% @posts.each do |post|%>
-    <div class="post-container d-flex flex-column p-3 border rounded shadow-sm w-100" style="gap: 15px; max-width: 600px;">
+    <div class="post-container d-flex flex-column p-3 border rounded shadow-sm w-100" style="gap: 15px; max-width: 590px;">
       <div class="user-detail d-flex align-items-center border rounded shadow-sm w-100" style="gap: 10px">  		
-      	<div class="user-image">
-          <%= image_tag post.user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '60', height: '60' %>   
+      	<div class="user-image m-2 col-3">
+          <%= image_tag post.user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '50', height: '50' %>   
         </div>
-  			<div class="user-name fw-semibold">
-          <%= post.user.name %>   
+  			<div class="user-name fw-semibold col-6">
+          <%= link_to  post.user.name, post_path(post),class: 'text-decoration-none text-dark'%>   
         </div>
-    
-        
-          
-           <%= render 'users/follow_button', user: user %>
-
-        
-
+         
+           <%= render 'users/follow_button',  user: post.user %>
+         
       </div>	
   		<div class="post-detail">
         <div class="post-title fs-4 fw-semibold">
@@ -26,7 +22,7 @@
   			<div class="post-images d-flex" style="gap: 5px">
           <% post.images.each do |image| %>
     				<div class="post-image">
-              <%= image_tag image.variant(resize_to_limit: [300,300]),size:"100x100" %>
+              <%= image_tag image.variant(resize_to_limit: [300,300]),size:"135x135" %>
             </div>
           <% end %>
   			</div>
@@ -38,25 +34,3 @@
   <% end %>
 </div>
 
-<script> 
-  $(document).on('click', ".like-btn, .unlike-btn", function(e){
-   e.preventDefault();
-   target = $(this)
-   var urls = target.attr('href')
-   var method = target.attr('data-turbo-method')
-    $.ajax({url: urls, type: method, success: function(res){
-      target.closest('.post-action').replaceWith(res)
-    }});
-  });
-
-
-  $(document).on('click', ".follow-btn, .unfollow-btn", function(e){
-   e.preventDefault();
-   target = $(this)
-   var urls = target.attr('href')
-   var method = target.attr('data-turbo-method')
-    $.ajax({url: urls, type: method, success: function(res){
-      target.closest('.user-action').replaceWith(res)
-    }});
-  });
-</script>

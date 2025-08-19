@@ -1,13 +1,12 @@
-<div class="user-action" style="padding-left: 55%">
-  <% if @current_user.followings.exists?(id: user.id) %>
-    <%= link_to "Unfollow",
-                "/unfollow?following_id=#{user.id}",
-                data: { turbo_method: :delete },
-                class: "unfollow-btn btn btn-sm btn-danger" %>
-  <% else %>
-    <%= link_to "Follow",
-                "/follow?following_id=#{user.id}",
-                data: { turbo_method: :post },
-                class: "follow-btn btn btn-sm btn-secondary" %>
+ <div class="user-action m-2 col-3">
+
+<% if user.follower_users.exists?(@current_user.id)%>
+  <%= link_to  "/unfollow?following_id=#{user.id}",data: { turbo: false, turbo_method: :delete}, class: "unfollow-btn btn btn-sm btn-danger" do %>Unfollow
   <% end %>
+  
+<% else %>
+    
+  <%= link_to  "/follow?following_id=#{user.id}", data: { turbo: false, turbo_method:           :post},class: "follow-btn btn btn-sm btn-secondary"  do %>Follow
+  <% end %>
+<% end %>
 </div>

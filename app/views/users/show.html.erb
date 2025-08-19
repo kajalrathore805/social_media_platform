@@ -14,9 +14,13 @@
         </div>
 
          <div class="mb-3 list-inline text-center">
-        <li class="list-inline-item">posts :<%= @current_user.posts_count%></li>
-        <li class="list-inline-item">Followers :<%= @current_user.follows_count%></li>
-        <li class="list-inline-item">Following :<%= @current_user.follows_count%></li>
+        <li class="list-inline-item">
+          <%= link_to "posts :", posts_path(@post), class:"text-decoration-none text-dark"%>
+          <%= @current_user.posts_count%></li>
+        <li class="list-inline-item">
+          <%= link_to "Followers :", follow_path(@current_user), class:"text-decoration-none text-dark"%>
+          <%= @current_user.follower_users.count%></li>
+        <li class="list-inline-item">Following :<%= @current_user.following_users.count%></li>
         </div>
 
         <div class="mb-3 text-center">
@@ -33,7 +37,6 @@
           <%= form.label "phone:"%>
           <%= @user.phone %>
         </div>
-
         <ul class="list-inline text-center">
           <li class="list-inline-item"><%= link_to "Edit" , edit_user_path(@user),class: "btn btn-secondary inline"%></li>
           <li class="list-inline-item "><%= link_to "Delete" , user_path(@user), data: { turbo_method: :delete,turbo_confirm: "Are you sure?"},class:'btn btn-secondary' %></li>

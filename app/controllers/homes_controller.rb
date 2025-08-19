@@ -3,6 +3,7 @@ class HomesController < ApplicationController
 	def index
 		@posts = Post.where.not(user_id: current_user.id).order(title: :asc)
 	  @users = User.where.not(id: current_user.id)
+	  
 	end
 	def show
 	  @post = Post.find(params[:post_id])

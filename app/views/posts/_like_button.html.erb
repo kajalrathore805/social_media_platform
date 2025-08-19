@@ -1,4 +1,4 @@
-<% if post.likes.exists?(user_id: @current_user.id)%>
+<% if post.already_liked?(@current_user) %>
   <%= link_to  "/unlike?post_id=#{post.id}", data: { turbo: false, turbo_method: :delete}, class:"unlike-btn" do %>
    <i class="bi bi-hand-thumbs-down text-decoration-none text-dark"></i>
   <% end %>

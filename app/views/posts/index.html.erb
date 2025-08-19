@@ -1,12 +1,12 @@
 
 <%= render  "shared/post_nav"%>
 
-
+<% if @posts.present?%>
 <div class='posts-container d-flex flex-column mt-3 p-3 container-sm align-items-center' style="gap: 30px">
   <% @posts.each do |post|%>
-    <div class="post-container d-flex flex-column p-3 border rounded shadow-sm w-100" style="gap: 15px; max-width: 600px;">
+    <div class="post-container d-flex flex-column p-3 border rounded shadow-sm w-100" style="gap: 15px; max-width: 590px;">
       <div class="user-detail d-flex align-items-center border rounded shadow-sm w-100" style="gap: 10px">      
-        <div class="user-image ">
+        <div class="user-image m-2">
           <%= image_tag post.user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '60', height: '60' %>   
         </div>
         <div class="user-name fw-semibold">
@@ -20,11 +20,16 @@
         <div class="post-images d-flex" style="gap: 5px">
           <% post.images.each do |image| %>
             <div class="post-image">
-              <%= image_tag image.variant(resize_to_limit: [300,300]),size:"100x100" %>
+              <%= image_tag image.variant(resize_to_limit: [300,300]),size:"135x135" %>
             </div>
           <% end %>
         </div>
     </div>
   <% end %>
 </div>
+<% else %>
+<div class="post-container d-flex flex-column p-3 border rounded shadow-sm w-100 align-items-center">
+  No post here!
+</div>
 
+<% end %>

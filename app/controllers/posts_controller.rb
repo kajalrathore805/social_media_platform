@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-	before_action :set_post, only: [:show, :like, :unlike]
+	# before_action :set_post, only: [:show, :like, :unlike]
 	def index
 		@posts = current_user.posts
 	end
