@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :followers, through: :follow_users
 
   has_many :following_users, foreign_key: :user_id, class_name: "Follow"
-  has_many :following, through: :following_users
+  has_many :followings, through: :following_users
 
   
 	validates :name,:email,:password,:phone,:bio, presence: true
