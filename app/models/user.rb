@@ -11,7 +11,8 @@ class User < ApplicationRecord
   has_many :following_users, through: :followings, source: :following
 
   
-	validates :name,:email,:password,:phone,:bio, presence: true
+	validates :name,:email,:password,:phone, presence: true
+  validates :bio,length: { minimum: 10 }
 
  	before_validation :normalize_name, on: :create
   after_validation :normalize_email

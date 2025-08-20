@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   accepts_nested_attributes_for :comments, :likes
   validates :title, :body, presence: true
   before_validation :normalize_title, on: :create
+  validates :body,length: { minimum: 10 }
 
   def already_liked?(c_user)
     likes.exists?(user_id: c_user.id)

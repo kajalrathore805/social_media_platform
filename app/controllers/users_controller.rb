@@ -48,6 +48,15 @@ class UsersController < ApplicationController
 		redirect_to users_path
 	end
 
+	def follow_users
+		# @user = User.find(params[:id])
+		@followers = @current_user.followers.includes(:follower)
+	end
+
+	def following
+		@followings = @current_user.followings.includes(:following)
+	end
+
 	private 
 
 	def user_params

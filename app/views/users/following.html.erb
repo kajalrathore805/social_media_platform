@@ -1,0 +1,15 @@
+
+
+<%= render  "shared/post_nav"%>
+<div class="container d-flex justify-content-center mt-5">
+  <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+		<h2>All followings</h2>
+		<ul>
+		<% @followings.each do |follow|%>
+		
+		<li><%= follow.following.name%></li>
+		
+		<% end %>
+		</ul>
+	</div>
+</div>

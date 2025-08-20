@@ -1,7 +1,5 @@
 
 <%= render  "shared/post_nav"%>
-
-
 <div class="container d-flex justify-content-center mt-5">
   <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
     <h2 class="text-dark mb-4 text-center">Welcome <br> <%= @current_user.name%> </h2>
@@ -18,9 +16,11 @@
           <%= link_to "posts :", posts_path(@post), class:"text-decoration-none text-dark"%>
           <%= @current_user.posts_count%></li>
         <li class="list-inline-item">
-          <%= link_to "Followers :", follow_path(@current_user), class:"text-decoration-none text-dark"%>
+          <%= link_to "Followers :",follow_users_path, class:"text-decoration-none text-dark"%>
           <%= @current_user.follower_users.count%></li>
-        <li class="list-inline-item">Following :<%= @current_user.following_users.count%></li>
+        <li class="list-inline-item">
+           <%= link_to "Following :", following_path, class:"text-decoration-none text-dark"%> 
+          <%= @current_user.following_users.count%></li>
         </div>
 
         <div class="mb-3 text-center">
@@ -29,8 +29,11 @@
         </div>
 
         <div class="mb-3 text-center">
+          <% if @user.bio.present?%>
           <%= form.label "bio:"%>
           <%= @user.bio%>
+          <% else %>
+          <% end %>
         </div>
 
         <div class="mb-3 text-center">

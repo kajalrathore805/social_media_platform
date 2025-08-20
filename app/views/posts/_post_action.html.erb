@@ -1,12 +1,14 @@
 <div class="post-action mt-2">
 
   <%= render "posts/like_button", post: post %>
-  
+
   <%= link_to post_comments_path(post) ,data: { turbo_method: :get} do %>
     <i class="bi bi-chat text-decoration-none text-dark" style="padding-left: 58px;"></i>
   <% end %>
   <div class="post-action mt-0">
-    <span style="font-size: 15px;">Likes:<%= post.likes_count %></span>
-    <span style="font-size: 15px;">Comments:<%= post.comments_count %></span>
+    <span style="font-size: 15px;">
+      <%= link_to "Likes:", likes_path, class:"text-decoration-none text-dark"%>
+      <%= post.likes_count %></span>
+    <span  style="font-size: 15px;">Comments:<%= post.comments_count %></span>
   </div>
 </div>

@@ -1,6 +1,7 @@
 class FollowsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
+
   def create
   @user = User.find(params[:following_id])
   follow = Follow.create(user_id: current_user.id, following_id: @user.id)
