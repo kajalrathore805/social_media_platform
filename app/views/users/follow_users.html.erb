@@ -6,7 +6,7 @@
 		<h2>All followers</h2>
 		<ul>
 		<% @followers.each do |follow|%>
-		<li><%= follow.follower.name%></li>
+		<li><%= link_to follow.follower.name, show_user_user_path(follow.user_id),class:"text-decoration-none text-dark"%></li>
 		<% end %>
 		</ul>
 	</div>

@@ -1,0 +1,14 @@
+
+<%= render  "shared/post_nav"%>
+
+<div class="container d-flex justify-content-center mt-5">
+  <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+    <h2>All Likes</h2>
+    <ul>
+     <% @likes.each do |like|  %>
+     
+     <li> <%= link_to like.user.name, show_user_user_path(like.user_id),class:"text-decoration-none text-dark"%></li>
+    <% end %>
+    </ul>
+</div>
+</div>

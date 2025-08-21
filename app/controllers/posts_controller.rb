@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 	# before_action :set_post, only: [:show, :like, :unlike]
 	def index
-		@posts = current_user.posts
+	  @posts = @current_user.posts
 	end
 
 	def show
@@ -35,6 +35,11 @@ class PostsController < ApplicationController
 		else
 			render :new
 		end
+	end
+
+	def total_likes
+		@post = Post.find(params[:id])
+		@likes = Like.includes(:user).where(post_id: @post.id)
 	end
 
 	def edit 

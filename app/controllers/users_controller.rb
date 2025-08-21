@@ -11,6 +11,10 @@ class UsersController < ApplicationController
 		@user=User.find_by(id: session[:user_id])
 	end
 
+	def show_user
+		@user = User.find(params[:id])
+	end
+
 	def new
 		@user = User.new
 	end
@@ -49,7 +53,6 @@ class UsersController < ApplicationController
 	end
 
 	def follow_users
-		# @user = User.find(params[:id])
 		@followers = @current_user.followers.includes(:follower)
 	end
 

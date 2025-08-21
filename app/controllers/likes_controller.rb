@@ -1,9 +1,5 @@
 class LikesController < ApplicationController
-skip_before_action :verify_authenticity_token, only: [:index,:create,:destroy]
-
-  def index
-    @likes = Like.includes(:user).where(post_id: 38)
-  end
+skip_before_action :verify_authenticity_token, only: [:create,:destroy]
   
 	def create
     @post = Post.find(params[:post_id])

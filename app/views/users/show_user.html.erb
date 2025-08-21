@@ -2,7 +2,7 @@
 <%= render  "shared/post_nav"%>
 <div class="container d-flex justify-content-center mt-5">
   <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
-    <h2 class="text-dark mb-4 text-center">Welcome <br> <%= @current_user.name%> </h2>
+    <h2 class="text-dark mb-4 text-center"><br> <%= @user.name%> </h2>
       <%= form_with  do |form|%>
 
         <div class="mb-3 text-center">
@@ -14,13 +14,13 @@
          <div class="mb-3 list-inline text-center">
         <li class="list-inline-item">
           <%= link_to "posts :", posts_path(@post), class:"text-decoration-none text-dark"%>
-          <%= @current_user.posts_count%></li>
+          <%= @user.posts_count%></li>
         <li class="list-inline-item">
           <%= link_to "Followers :",follow_users_path, class:"text-decoration-none text-dark"%>
-          <%= @current_user.followers.count%></li>
+          <%= @user.followers.count%></li>
         <li class="list-inline-item">
            <%= link_to "Following :", following_path, class:"text-decoration-none text-dark"%> 
-          <%= @current_user.followings.count%></li>
+          <%= @user.followings.count%></li>
         </div>
 
         <div class="mb-3 text-center">
@@ -40,11 +40,6 @@
           <%= form.label "phone:"%>
           <%= @user.phone %>
         </div>
-        <ul class="list-inline text-center">
-          <li class="list-inline-item"><%= link_to "Edit" , edit_user_path(@user),class: "btn btn-secondary inline"%></li>
-          <li class="list-inline-item "><%= link_to "Delete" , user_path(@user), data: { turbo_method: :delete,turbo_confirm: "Are you sure?"},class:'btn btn-secondary' %></li>
-          <li class="list-inline-item"><%= link_to "Log out", session_path(@user), data:  { turbo_method: :delete,  turbo_confirm: "Are you sure?" },class: "btn btn-secondary inline" %></li>
-        </ul>
       <% end %>
   </div>
 </div>

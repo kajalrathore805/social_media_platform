@@ -1,9 +1,0 @@
-
-
-<% if @current_user.followers.exists?%>
-<%= render "followers_list", follow: @follows%>
-
-
-<% else %>
-<%= render "followings_list", follow: @follows%>
-<% end %>

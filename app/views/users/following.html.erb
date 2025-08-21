@@ -7,8 +7,7 @@
 		<ul>
 		<% @followings.each do |follow|%>
 		
-		<li><%= follow.following.name%></li>
-		
+		<li><%=link_to follow.following.name,show_user_user_path(follow.following_id),class:"text-decoration-none text-dark"%></li>
 		<% end %>
 		</ul>
 	</div>

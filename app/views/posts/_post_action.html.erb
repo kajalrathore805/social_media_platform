@@ -7,7 +7,7 @@
   <% end %>
   <div class="post-action mt-0">
     <span style="font-size: 15px;">
-      <%= link_to "Likes:", likes_path, class:"text-decoration-none text-dark"%>
+      <%= link_to "Likes:", total_likes_post_path(post), class:"text-decoration-none text-dark"%>
       <%= post.likes_count %></span>
     <span  style="font-size: 15px;">Comments:<%= post.comments_count %></span>
   </div>

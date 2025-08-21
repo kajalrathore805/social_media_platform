@@ -1,26 +1,28 @@
 Rails.application.routes.draw do
   root "session#new"
-  resources :session, :homes, :users
+  resources :session, :homes
 
-  # post "users/:user_id/follows", to: "follows#create"
-
-  # resources  :users do
-  #   resource :follows, only: [:create,:destroy]
-   
-  # end
- 
+ resources :users do
+  member  do
+      get 'show_user'
+      
+    end
+ end
 
   resources :posts do
+    member  do
+      get 'total_likes'
+    end
     resources :comments
   end
 
   post "like", to: "likes#create"
   delete "unlike", to: "likes#destroy"
-  get  "/likes", to: "likes#index"
+  
 
   post "follow", to: "follows#create"
   delete "unfollow", to: "follows#destroy"
 
  get "follow_users", to: "users#follow_users"
- get "/following", to: "users#following"
+ get "following", to: "users#following"
 end
