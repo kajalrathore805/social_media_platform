@@ -1,0 +1,12 @@
+<h3>Notifications</h3>
+
+
+<% if @notifications.present?%>
+<% @notifications.each do |notification|%>
+
+<%= notification.user_id %>
+
+<% end %>
+<% else %>
+<p>No Notifications</p>
+<% end %>

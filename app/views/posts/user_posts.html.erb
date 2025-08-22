@@ -15,8 +15,8 @@
       </div>  
       <div class="post-detail"></div>
       <div class="post-title fs-4 fw-semibold">
-                <%= link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'%>
-        </div>
+          <%= link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'%>
+      </div>
         <div class="post-images d-flex" style="gap: 5px">
           <% post.images.each do |image| %>
             <div class="post-image">

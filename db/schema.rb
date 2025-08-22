@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_19_125650) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_22_122549) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -64,6 +64,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_19_125650) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "notifications", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "like_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["like_id"], name: "index_notifications_on_like_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "posts", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "body"
@@ -91,5 +100,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_19_125650) do
   add_foreign_key "comments", "posts"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "likes"
+  add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
 end

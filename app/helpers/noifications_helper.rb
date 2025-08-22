@@ -1,0 +1,2 @@
+module NoificationsHelper
+end
