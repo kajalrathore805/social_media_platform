@@ -1,4 +1,4 @@
-<div class="user-action m-3" data-user-id="<%= user.id %>"  style="flex-grow: 0">
+<div class="user-action m-3" data-user-id="<%= user.id %>">
   <% if user.follower_users.exists?(@current_user.id) %>
     <%= link_to "/unfollow?following_id=#{user.id}", data: { turbo: false, turbo_method: :delete }, class: "unfollow-btn btn btn-sm btn-danger" do %>
       Unfollow

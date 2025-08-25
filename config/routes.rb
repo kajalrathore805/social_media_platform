@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "session#new"
-  resources :session, :homes, :notifications
+  resources :session, :homes
 
+  resources :notifications,only: [:index,:create, :show]
  resources :users do
   member  do
     get 'show_user'  
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
     end
     resources :comments
   end
+
+  delete "delete_notification", to: "notifications#delete_notification"
 
   post "like", to: "likes#create"
   delete "unlike", to: "likes#destroy"

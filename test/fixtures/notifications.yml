@@ -1,7 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
+  recepient: one
+  actor: one
+  action: MyString
+  comment: one
 
 two:
-  user: two
+  recepient: two
+  actor: two
+  action: MyString
+  comment: two

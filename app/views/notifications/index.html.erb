@@ -1,12 +1,17 @@
-<h2>Notifications</h2>
+<%= render  "shared/post_nav"%>
 
+<h3 style="text-align: center;">All Notifications</h3>
 
-<% if @notifications.present?%>
 <% @notifications.each do |notification|%>
-
-<%= notification.user_id %>
+  <% if notification.recepient_id == @current_user.id%>
+  <div class="container d-flex justify-content-center mt-5">
+  <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+    <b><%= notification.actor.name%></b>
+   <span style="color:green"> <%= notification.action%></span>
+  <%= link_to  "delete","/delete_notification?recepient_id=#{@current_user.id}", class:"bi bi-x-square", data: {turbo_method: :delete, confirm:"are you sure"} %>
+  </div>
+</div>
+<%else%>
 
 <% end %>
-<% else %>
-<p>No Notifications</p>
 <% end %>
