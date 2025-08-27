@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "session#new"
   resources :session, :homes
 
-  resources :notifications,only: [:index,:create, :show]
+  resources :notifications,only: [:index,:create]
  resources :users do
   member  do
     get 'show_user'  

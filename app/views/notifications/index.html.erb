@@ -2,16 +2,16 @@
 
 <h3 style="text-align: center;">All Notifications</h3>
 
-<% @notifications.each do |notification|%>
-  <% if notification.recepient_id == @current_user.id%>
-  <div class="container d-flex justify-content-center mt-5">
-  <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
-    <b><%= notification.actor.name%></b>
-   <span style="color:green"> <%= notification.action%></span>
-  <%= link_to  "delete","/delete_notification?recepient_id=#{@current_user.id}", class:"bi bi-x-square", data: {turbo_method: :delete, confirm:"are you sure"} %>
-  </div>
-</div>
-<%else%>
-
-<% end %>
+  <% @notifications.each do |notification|%>
+    <% if notification.recepient_id == @current_user.id%>
+      <div class="container d-flex justify-content-center mt-5">
+      <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
+        <span><b><%= notification.actor.name%></b></span>
+        <span style="color:green; gap: 10px;"> <%= notification.action%></span>
+        <span><%= link_to  "/delete_notification?id=#{notification.id}", data: {turbo_method: :delete, turbo_confirm:"are you sure you want to delete?"} do%>
+        <i class="bi bi-x-square text-decoration-none text-dark"></i>
+        <% end %></span>
+      </div>
+    </div>   
+    <% end %>
 <% end %>

@@ -7,6 +7,13 @@ class Comment < ApplicationRecord
     self.body = body.capitalize
   end
 
+after_create_commit :notify_post_owner
+
+  def notify_post_owner
+
+    @notification = CreateLikeNotification.new(self, @current_user)
+    @notification.call
+  end
 
 end
 

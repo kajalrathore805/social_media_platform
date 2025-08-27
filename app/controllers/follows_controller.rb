@@ -8,18 +8,18 @@ class FollowsController < ApplicationController
 
    # follow.user_id = current_user.id
 
-    if follow.save
-      Notification.create(
-        recepient: @user,
-        actor: current_user,
-        action: 'Followed you',
-        notifiable: follow
-      ) unless @user == current_user
+    # if follow.save
+    #   Notification.create(
+    #     recepient: @user,
+    #     actor: current_user,
+    #     action: 'Followed you',
+    #     notifiable: follow
+    #   ) unless @user == current_user
 
-      render partial: "users/follow_button", locals: { user: @user }
-    else
-      redirect_to :new
-    end
+       render partial: "users/follow_button", locals: { user: @user }
+    # else
+    #   redirect_to :new
+    # end
   end
 
   def destroy
