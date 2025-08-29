@@ -3,15 +3,25 @@
 <h3 style="text-align: center;">All Notifications</h3>
 
   <% @notifications.each do |notification|%>
-    <% if notification.recepient_id == @current_user.id%>
       <div class="container d-flex justify-content-center mt-5">
-      <div class="p-4 border rounded shadow bg-white" style="min-width: 400px;">
-        <span><b><%= notification.actor.name%></b></span>
-        <span style="color:green; gap: 10px;"> <%= notification.action%></span>
+      <div class="p-4 border rounded shadow bg-white" style="min-width: 450px;">
+        <span><b><%= link_to notification.actor.name, user_path(notification.actor),class:"text-decoration-none text-dark"%></b></span>
+        <span style="color:green;padding-left: 10%;"> 
+          <% if notification.action == "started following you" %>
+            <%=link_to  notification.action, user_path(notification.actor)%>
+          <% elsif notification.action == "liked your post" %>
+            <%=link_to  notification.action,  post_path(notification.notifiable.post)%>
+          <% elsif notification.action == "commented on your post" %>
+            <%=link_to  notification.action,  post_path(notification.notifiable.post)%>
+          <% elsif notification.action == "created a new post" %>
+            <%=link_to  notification.action,  post_path(notification.notifiable)%>
+            <% else %>
+            <p>No action</p>
+          <% end %>
+          </span>
         <span><%= link_to  "/delete_notification?id=#{notification.id}", data: {turbo_method: :delete, turbo_confirm:"are you sure you want to delete?"} do%>
-        <i class="bi bi-x-square text-decoration-none text-dark"></i>
+        <i class="bi bi-x-square text-decoration-none text-dark" style="float:right;"></i>
         <% end %></span>
       </div>
     </div>   
-    <% end %>
 <% end %>

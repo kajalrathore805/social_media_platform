@@ -6,12 +6,10 @@ class Like < ApplicationRecord
 
   validates :user_id , uniqueness: {scope: :post_id}
 
-   after_create_commit :notify_post_owner
+  # attr_accessor :current_user
+  after_create_commit :notify_post_owner
 
   def notify_post_owner
-
-    @notification = CreateLikeNotification.new(self, current_user)
-    @notification.call
+    NotificationCreator.new(self, self.post.user, user).call
   end
-
 end

@@ -1,9 +1,9 @@
 
-    <div class="p-2 border rounded shadow bg-white text-center" style="min-width: 300px;">
+<div class="p-2 border rounded shadow bg-white text-center" style="min-width: 300px;">
+      <% @comments.each do |comment|%>
   <p>
     <strong>Commenter:</strong>
-  <%= User.find(comment.commenter).name %>
-
+  <%= comment.user.name%>
   </p>
 
   <p>
@@ -11,12 +11,15 @@
     <%= comment.body %>
   </p>
   <p>
-    <% if comment.commenter ==  @current_user.id%>
+    <% if comment.user_id ==  @current_user.id%>
+
+    <span class="list-inline-item"><%= link_to "Edit" , edit_post_comment_path(@post,comment.id),class: "btn btn-sm btn-secondary inline"%></span>
     <%= link_to "Delete", [comment.post, comment],class:"btn btn-sm btn-danger", data: {
                   turbo_method: :delete,
                   turbo_confirm: "Are you sure?"
-                } %>
+            } %>
   <% end %>
   </p>
-  </div>
+  <% end %>
+</div>
 

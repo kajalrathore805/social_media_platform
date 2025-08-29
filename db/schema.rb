@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_25_050644) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_29_055420) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,12 +40,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_25_050644) do
   end
 
   create_table "comments", charset: "utf8mb3", force: :cascade do |t|
-    t.integer "commenter"
     t.string "body"
     t.bigint "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "follows", charset: "utf8mb3", force: :cascade do |t|
@@ -62,6 +63,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_25_050644) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "recepient_id", null: false
+    t.bigint "actor_id", null: false
+    t.string "action"
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["recepient_id"], name: "index_notifications_on_recepient_id"
   end
 
   create_table "posts", charset: "utf8mb3", force: :cascade do |t|
@@ -89,7 +103,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_25_050644) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "users", column: "actor_id"
+  add_foreign_key "notifications", "users", column: "recepient_id"
   add_foreign_key "posts", "users"
 end

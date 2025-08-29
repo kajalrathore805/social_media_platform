@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   resources :session, :homes
 
   resources :notifications,only: [:index,:create]
- resources :users do
+  resources :users do
   member  do
     get 'show_user'  
-    # get 'user_posts'
     end
  end
 

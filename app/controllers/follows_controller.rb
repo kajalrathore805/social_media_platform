@@ -2,30 +2,21 @@ class FollowsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def create
-  @user = User.find(params[:following_id])
-  follow = Follow.create(user_id: current_user.id, following_id: @user.id)
+    @user = User.find(params[:following_id])
+    @follow = Follow.new(user_id: current_user.id, following_id: @user.id)
+    # @follow.current_user = current_user  
 
-
-   # follow.user_id = current_user.id
-
-    # if follow.save
-    #   Notification.create(
-    #     recepient: @user,
-    #     actor: current_user,
-    #     action: 'Followed you',
-    #     notifiable: follow
-    #   ) unless @user == current_user
-
+    if @follow.save
        render partial: "users/follow_button", locals: { user: @user }
-    # else
-    #   redirect_to :new
-    # end
+    else
+      redirect_to :new
+    end
   end
 
   def destroy
     @user = User.find(params[:following_id])
-    follow = Follow.find_by(user_id: current_user.id, following_id: @user.id)
-      follow.destroy
+    @follow = Follow.find_by(user_id: current_user.id, following_id: @user.id)
+      @follow.destroy
       render partial: "users/follow_button", locals: { user: @user }
   end
 

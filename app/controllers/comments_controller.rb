@@ -1,38 +1,43 @@
 class CommentsController < ApplicationController
-
-  
-	def index
-    @post = Post.find(params[:post_id])
+  before_action :set_post, only: [:index, :create, :edit, :update, :destroy]
+  def index
+    @comments = @post.comments.includes(:post)
   end
 
-	 def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(comment_params)
-    # @comment.commenter = current_user.id
+  def create
+    @comment = @post.comments.build(comment_params)
 
-    # if @comment.save
-    #   Notification.create(
-    #     recepient: @post.user,
-    #     actor: current_user,
-    #     action: 'commented on your post',
-    #     notifiable: @comment
-    #   ) unless @post.user == current_user
-
+    if @comment.save
       redirect_to post_comments_path(@post)
-    # else
-    #   render :new
-    # end
+    end
+  end
+
+  def edit
+    @comment = @post.comments.find(params[:id])
+  end
+
+  def update
+    @comment = @post.comments.find(params[:id])
+
+    if @comment.update(comment_params)
+      redirect_to post_comments_path(@post)
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     @comment.destroy
     redirect_to post_comments_path(@post), status: :see_other
   end
 
+  def set_post
+      @post = Post.find(params[:post_id])
+    end
+
   private
     def comment_params
-      params.require(:comment).permit(:commenter, :body)
-    end
+      params.require(:comment).permit(:user_id, :body)
+    end    
 end

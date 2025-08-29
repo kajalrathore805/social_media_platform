@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   # before_action :set_post, only: [:show, :like, :unlike]
   def index
-    @posts = @current_user.posts
+    @posts = @current_user.posts.paginate(page: params[:page], per_page: 2)
   end
 
   def show
@@ -34,7 +34,6 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-
     if @post.save
       redirect_to @post
     else
