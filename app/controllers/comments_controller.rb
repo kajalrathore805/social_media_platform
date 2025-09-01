@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_post, only: [:index, :create, :edit, :update, :destroy]
   def index
-    @comments = @post.comments.includes(:post)
+    @comments = @post.comments.includes(:user)
   end
 
   def create

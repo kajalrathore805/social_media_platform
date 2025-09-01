@@ -11,8 +11,18 @@
     </p>
     <p>
       <%= form.submit "Submit",class:'btn btn-sm btn-secondary' %>
-      <%= link_to "back", post_path(@post),class:'btn btn-sm btn-secondary'%>
     </p>
   <% end %>
   </div>
 </div>
+
+<%# <script>
+  $(document).on('click', ".btn", function(e){
+   e.preventDefault();
+   target = $(this)
+   var urls = target.$("input").val();
+    $.ajax({url: urls, success: function(res){
+      target.closest('.div1').replaceWith(res)
+    }});
+  });
+</script> %>
