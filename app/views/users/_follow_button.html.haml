@@ -1,0 +1,9 @@
+.user-action.m-3{ "data-user-id" => user.id}
+  -if user.follower_users.exists?(@current_user.id) 
+    = link_to "/unfollow?following_id=#{user.id}", data: { turbo: false, turbo_method: :delete }, class: "unfollow-btn btn btn-sm btn-danger" do 
+      Unfollow
+
+  -else 
+    = link_to "/follow?following_id=#{user.id}", data: { turbo: false, turbo_method: :post }, class: "follow-btn btn btn-sm btn-secondary" do 
+      Follow
+  

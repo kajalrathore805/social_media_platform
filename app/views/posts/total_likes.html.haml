@@ -1,0 +1,9 @@
+= render "shared/post_nav"
+
+.container.d-flex.justify-content-center.mt-5
+  .p-4.border.rounded.shadow.bg-white{ style: "min-width: 400px;" }
+    %h2 All Likes
+    %ul
+      - @likes.each do |like|
+        %li
+          = link_to like.user.name, user_path(like.user_id), class: "text-decoration-none text-dark"

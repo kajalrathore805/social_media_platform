@@ -1,0 +1,21 @@
+
+.container.d-flex.justify-content-center.mt-5
+  .p-4.border.rounded.shadow.bg-white{ style:"min-width: 450px;"}
+    %h3.text-dark.mb-4.text-center
+      Edit post form
+
+    = form_with model: @post  do |form|
+
+      .mb-3
+        = form.label :title
+        = form.text_field :title, class:'form-control'
+
+      .mb-3
+        = form.label :body
+        = form.text_field :body, class:'form-control'
+
+      .mb-3
+
+      .mb-3.text-center
+        = form.submit "submit", class:'btn btn-secondary'
+      

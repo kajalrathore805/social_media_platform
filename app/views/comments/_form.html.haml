@@ -1,0 +1,15 @@
+
+.container.d-flex.justify-content-center.mt-5
+  .p-4.border.rounded.shadow.bg-white{ style:"min-width: 450px;"}
+    %h3.text-dark.mb-4.text-center
+      Comment form
+    = form_with model: [ @post, @post.comments.build ], id:"comment-form" do |form|
+
+      = form.hidden_field :user_id, value:@current_user.id
+      %p
+        = form.label "body:"
+        %br
+        = form.text_area :body
+  
+      %p
+        = form.submit "Submit",class:'submit-btn btn btn-sm btn-secondary'

@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: :destroy
+
   before_action :set_post, only: [:index, :create, :edit, :update, :destroy]
   def index
     @comments = @post.comments.includes(:user)
@@ -8,7 +10,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
 
     if @comment.save
-      redirect_to post_comments_path(@post)
+       render partial: 'comment', locals: {comment: @comment}, layout: false
     end
   end
 
@@ -29,7 +31,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = @post.comments.find(params[:id])
     @comment.destroy
-    redirect_to post_comments_path(@post), status: :see_other
+    render json: { success: true }, status: 200
   end
 
   def set_post

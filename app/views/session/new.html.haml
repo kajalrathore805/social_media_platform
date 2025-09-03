@@ -1,0 +1,23 @@
+
+= render :partial => "shared/login_nav"
+= render :partial => "layouts/flash"
+
+%div.container.d-flex.justify-content-center.mt-5
+  %div.p-4.border.rounded.shadow.bg-white{style:"min-width: 400px;"}
+    %h2.text-dark.mb-4.text-center 
+      Login form
+
+    =form_with model: @user, url: '/session', method: :post do |form|
+
+      %div.mb-3
+        =form.label :combined_value, 'Enter your Email or Phone number'
+        =form.text_field :combined_value, value: params.dig(:user, :combined_value), class: "form-control"
+
+      %div.mb-3
+        =form.label :password
+        =form.password_field :password, class: "form-control"
+    
+      %div.mb-3.col-sm-4
+        =form.submit "Submit", class: "btn btn-success"
+      
+     

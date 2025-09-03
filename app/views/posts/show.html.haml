@@ -1,0 +1,52 @@
+
+= render :partial =>  "shared/post_nav"
+
+%div.container.d-flex.justify-content-center.mt-5
+  %div.p-4.border.rounded.shadow.bg-white{style:"min-width: 400px;"}
+    = form_with  do |form|
+
+      .mb-3.text-center
+        = form.label "title:"
+        = @post.title
+      
+      .mb-3.text-center
+        = form.label "body:"
+        = @post.body
+     
+
+      .mb-3.text-center
+        - if @post.images.attached?
+          - @post.images.each do |image|
+            = image_tag  image.variant(resize_to_limit: [300,300]),size:'150x150'
+        
+        - else 
+          %p 
+            No images found
+        
+        = render "posts/post_action", post: @post
+      .mb-3.text-center
+        -if @post.user.id == @current_user.id
+          %span
+            = link_to "Edit" , edit_post_path(@post),class: "btn btn-secondary inline"
+          %span 
+            = link_to "Delete" , post_path(@post), data: { turbo_method: :delete,turbo_confirm: "Are you sure?"},class:'btn btn-secondary'
+        -else      
+        
+.modal.fade#myModal
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %h4.modal-title All Comments
+        %button.btn-close{"type" => "button", "data-bs-dismiss" => "modal"}
+
+      .modal-body
+        -# comment data here
+
+      .modal-footer
+      %button.btn.btn-danger{"type" => "button", "data-bs-dismiss" => "modal"} Close
+
+    
+
+
+    
+

@@ -1,0 +1,16 @@
+.post-action.mt-2
+  = render "posts/like_button", post: post 
+  
+  = link_to post_comments_path(post),class:"cbtn", data: { turbo_method: :get,bs_toggle: "modal", bs_target: "#commentModal"} do 
+    %i.bi.bi-chat.text-decoration-none.text-dark{style:"padding-left: 58px;"}
+  
+
+  .post-action.mt-0
+    %span{style:"font-size: 15px;"}
+      = link_to "Likes:", total_likes_post_path(post), class:"text-decoration-none text-dark"
+      = post.likes_count
+    %span{style:"font-size: 15px;"}
+      Comments:
+      = post.comments_count
+ 
+

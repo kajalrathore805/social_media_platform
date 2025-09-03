@@ -1,0 +1,49 @@
+
+= render :partial => "shared/post_nav"
+%div.container.d-flex.justify-content-center.mt-5
+  %div.p-4.border.rounded.shadow.bg-white{style:"min-width: 400px;"}
+    %h2.text-dark.mb-4.text-center  
+      = @user.name
+    
+    .mb-3.text-center
+      -if @user.image.attached?
+        = image_tag @user.image ,size:'120x100', class: "rounded-circle w-25"
+      
+    .mb-3.list-inline.text-center
+      %span.list-inline-item
+        = link_to "posts :", user_posts_path(user_id: @user.id), class:"text-decoration-none text-dark"
+        = @user.posts_count
+      
+      %span.list-inline-item
+        = link_to "Followers :", user_follow_users_path(following_id: @user.id), class:"text-decoration-none text-dark"
+        = @user.followers.count
+      
+      %span.list-inline-item
+        = link_to "Following :", user_following_users_path(user_id: @user.id), class:"text-decoration-none text-dark"
+        = @user.followings.count
+      
+    .mb-3.text-center
+      %span Email:
+      = @user.email
+    
+    .mb-3.text-center
+      -if @user.bio.present?
+        %span Bio:
+        = @user.bio
+        
+
+    .mb-3.text-center
+      %span Phone:
+      = @user.phone
+
+    .mb-3.list-inline.text-center
+      -if @user.id == @current_user.id
+        %span.list-inline-item
+          = link_to "Edit" , edit_user_path(@user),class: "btn btn-secondary inline"
+
+        %span.list-inline-item
+          = link_to "Delete" , user_path(@user), data: { turbo_method: :delete,turbo_confirm: "Are you sure?"},class:'btn btn-secondary'
+        %span.list-inline-item
+          = link_to "Log out", session_path(@user), data:  { turbo_method: :delete,  turbo_confirm: "Are you sure?" },class: "btn btn-secondary inline"
+
+

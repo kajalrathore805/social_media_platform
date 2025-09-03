@@ -1,0 +1,30 @@
+= render :partial =>  "shared/post_nav"
+
+.container.d-flex.justify-content-center.mt-5
+  .p-4.border.rounded.shadow.bg-white{style:"min-width: 400px;"}
+    %h2.text-dark.mb-4.text-center
+      Post form
+
+    = form_with model: @post do |form|
+      .mb-3
+        = form.hidden_field :user_id, value:@current_user.id
+    
+      .mb-3
+        = form.label :title
+        %sup{style:"font-size: 15px;"}
+          *
+        = form.text_field :title, class:'form-control'
+
+      .mb-3
+        = form.label :body
+        = form.text_field :body, class:'form-control'
+
+      .mb-3
+        = form.label :image 
+        %sup{style:"font-size: 15px;"}
+          *
+        = form.file_field :images, multiple: true 
+      
+
+      .mb-3.text-center
+        = form.submit "submit", class:'btn btn-secondary'

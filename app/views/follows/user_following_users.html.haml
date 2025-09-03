@@ -1,0 +1,9 @@
+= render partial: "shared/post_nav"
+
+.container.d-flex.justify-content-center.mt-5
+  .p-4.border.rounded.shadow.bg-white{ style: "min-width: 400px;" }
+    %h2 All followings
+    %ul
+      - @followings.each do |follow|
+        %li
+          = link_to follow.following.name, user_path(follow.following_id), class: "text-decoration-none text-dark"

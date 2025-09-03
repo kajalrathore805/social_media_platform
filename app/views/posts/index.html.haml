@@ -1,0 +1,29 @@
+
+= render :partial =>  "shared/post_nav"
+-if @posts.present? 
+  .posts-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center{ style:"gap: 30px"}
+    - @posts.each do |post|
+      .post-container.d-flex.flex-column.p-3.border.rounded.shadow-sm.w-100{style:"gap: 15px; max-width: 590px;"}
+        .user-detail.d-flex.align-items-center.border.rounded.shadow-sm.w-100{ style:"gap: 10px"}      
+          .user-image.m-2
+            = image_tag post.user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '60', height: '60'   
+          
+          .user-name.fw-semibold
+            = post.user.name   
+          
+        .post-detail
+
+          .post-title.fs-4.fw-semibold
+            = link_to  post.title, post_path(post),class: 'text-decoration-none text-dark'
+            
+            .post-images.d-flex{ style:"gap: 5px"}
+              - post.images.each do |image|
+                .post-image
+                  =image_tag image.variant(resize_to_limit: [300,300]),size:"135x135"
+               
+- else
+  .post-container.d-flex.flex-column.p-3.border.rounded.shadow-sm.w-100.align-items-center
+
+    %p 
+      No post here
+= will_paginate @posts
