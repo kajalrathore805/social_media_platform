@@ -1,15 +1,13 @@
-= render "shared/post_nav"
 
-%h3{ style: "text-align: center;" } All Notifications
-
-- @notifications.each do |notification|
-  .container.d-flex.justify-content-center.mt-5
-    .p-4.border.rounded.shadow.bg-white{ style: "min-width: 450px;" }
-      %span
-        %b
-          = link_to notification.actor.name, user_path(notification.actor), class: "text-decoration-none text-dark"
-      %span{ style: "color:green;padding-left: 10%;" }
-        = perform_action(notification)
-      %span
-        = link_to "/delete_notification?id=#{notification.id}", data: { turbo_method: :delete, turbo_confirm: "are you sure you want to delete?" } do
-          %i.bi.bi-x-square.text-decoration-none.text-dark{ style: "float:right;" }
+%div
+  - @notifications.each do |notification|
+    .container.d-flex.justify-content-center.mt-2.notification
+      .p-4.border.rounded.shadow.bg-white{ style: "min-width: 450px;" }
+        %span
+          %b
+            = link_to notification.actor.name, user_path(notification.actor), class: "text-decoration-none text-dark"
+        %span{ style: "color:green;padding-left: 10%;" }
+          = perform_action(notification)
+        %span
+          = link_to  delete_notification_path(id: notification.id),class:"delete-notification", data: { method: :delete, turbo: false } do
+            %i.bi.bi-x-square.text-decoration-none.text-dark{ style: "float:right;" }

@@ -13,7 +13,7 @@
   %div
     - if comment.user_id ==  @current_user.id
       %span
-        = link_to "Edit" , edit_post_comment_path(@post,comment.id),class: "btn btn-sm btn-secondary inline"
+        = link_to "Edit" , edit_post_comment_path(@post,comment.id),class: "btn btn-sm btn-secondary inline edit-comment"
      
       %span
         = link_to "Delete", [comment.post, comment],class:"btn btn-sm btn-danger delete-data", data: { turbo_method: :delete,

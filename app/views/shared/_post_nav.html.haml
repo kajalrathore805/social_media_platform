@@ -1,0 +1,32 @@
+= stylesheet_link_tag "home_index"
+
+%header
+  %nav
+    .logo
+      %a{ href: "/homes" } Instagram
+    %ul
+      %li
+        %a{ href: "/homes" } Home
+      %li
+        %a{ href: "/posts/new" } Create post
+      %li
+        / %a{ href: "/notifications" }
+
+      = link_to notifications_path,  data: { bs_toggle: "modal",bs_target:'#notification-modal'} do 
+        %i.bi.bi-bell.text-decoration-none.text-light
+        %sup= @current_user.notifications.count
+      %li
+        %a{ href: "/users/#{@current_user.id}" } Profile
+
+
+.modal.fade#notification-modal
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %h4.modal-title All Notifications
+        %button.btn-close{ type: "button", "data-bs-dismiss" => "modal" }
+
+      .modal-body
+        
+      .modal-footer
+        %button.btn.btn-danger{ type: "button", "data-bs-dismiss" => "modal" } Close
