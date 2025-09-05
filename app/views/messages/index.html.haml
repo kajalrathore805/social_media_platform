@@ -1,0 +1,11 @@
+
+= render :partial =>  "shared/post_nav"
+%h2 Conversation with= " #{@receiver.name}"
+
+.messages-list
+  - @messages.each do |message|
+    .message
+      %strong= message.sender.name
+      %p= message.message_body
+
+= link_to "New Message", new_message_path(receiver_id: @receiver.id), class: "btn btn-primary"

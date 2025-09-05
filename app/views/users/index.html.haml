@@ -1,9 +1,13 @@
+= render :partial =>  "shared/post_nav"
 
-<%= render  "shared/login_nav"%>
-<h2>All Users</h2>
-<ul>
-<% @users.each do |user|%>
-	<li><%= link_to  user.name, user_path(user)%></li>
-	
-<% end %>
-</ul>
+.users-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center{ style: "gap: 30px;max-width: 590px;" }
+  - @users.each do |user|
+    .user-detail.d-flex.align-items-center.border.rounded.shadow-sm.w-100{ style: "gap: 10px;" }
+      .user-image.m-2
+        = link_to user_path(user) do
+          - if user.image.attached?
+            = image_tag user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '50', height: '50'
+          - else
+            %p no image
+      .user-name.fw-semibold{ style: "flex-grow: 1" }
+        = link_to user.name, messages_path(receiver_id: user.id), class: 'text-decoration-none text-dark'

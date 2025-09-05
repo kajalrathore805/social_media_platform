@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "session#new"
   resources :session, :homes
+  resources :messages, only: [:index, :new, :create]
+
 
   resources :notifications,only: [:index,:create]
   resources :users do

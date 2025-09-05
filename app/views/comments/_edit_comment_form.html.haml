@@ -1,9 +1,9 @@
 / = render :partial =>  "shared/post_nav"
-.container.d-flex.justify-content-center.mt-5.edit-comment-form
+.container.d-flex.justify-content-center.mt-5#edit-form
   .p-4.border.rounded.shadow.bg-white{ style:"min-width: 450px;"}
     %h3.text-dark.mb-4.text-center
       Edit comment form
-    = form_with  model: [@post, @comment], local: true do |form|
+    = form_with  model: [@post, @comment], local: true, id:"edit-comment-form" do |form|
 
       = form.hidden_field :commenter, value:@current_user.id
       %div

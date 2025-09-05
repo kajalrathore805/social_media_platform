@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   has_many :notifications,foreign_key: :recepient_id, class_name: "Notification", dependent: :destroy
-  
+  has_many :messages,foreign_key: :receiver_id, class_name: "Message", dependent: :destroy
 
   has_many :followers, foreign_key: :following_id, class_name: "Follow", dependent: :destroy
   has_many :follower_users, through: :followers, source: :follower

@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.find(params[:id])
 
     if @comment.update(comment_params)
-      render partial: 'edit_comment_form', locals: {comment: @comment}, layout: false
+      render partial: 'comment', locals: {comment: @comment}, layout: false
     else
       render :edit
     end

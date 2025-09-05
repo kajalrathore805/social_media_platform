@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   skip_before_action :auhenticate_user, only: [:create, :new]
 
   def index
-    @users = User.all
+    @users = User.where.not(id: current_user.id)
   end
 
   def show

@@ -1,8 +1,8 @@
 -if post.already_liked?(@current_user)
   = link_to  "/unlike?post_id=#{post.id}", data: { turbo: false, turbo_method: :delete}, class:"unlike-btn" do 
-    %i.bi.bi-hand-thumbs-down.text-decoration-none.text-dark
+    %i.bi.bi-heart-fill.text-danger
   
 -else
   = link_to  "/like?post_id=#{post.id}", data: { turbo: false, turbo_method: :post},class:"like-btn" do 
-    %i.bi.bi-hand-thumbs-up.text-decoration-none.text-dark
+    %i.bi.bi-heart
   

@@ -1,0 +1,7 @@
+
+= render :partial =>  "shared/post_nav"
+%h2 Send message to #{@receiver.name}
+
+= form_with model: @message, url: messages_path(receiver_id: @receiver.id), local: true do |form|
+  = form.text_area :message_body, placeholder: "Type your message...", rows: 4, class: "form-control"
+  = form.submit "Send", class: "btn btn-success mt-2"

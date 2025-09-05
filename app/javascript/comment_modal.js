@@ -1,15 +1,18 @@
 
-  $(document).on('shown.bs.modal', "#commentModal", function(e){
+  $(document).on('shown.bs.modal', "#comment-modal", function(e){
     e.preventDefault();
     target = $(e.relatedTarget)
     var action_url = target.attr('href')
-    $('#commentModal .modal-body').html('Loading......')
+    $('#comment-modal .modal-body').html('Loading......')
     var method = target.attr('data-turbo-method')
 
       $.ajax({url: action_url, type: method, success: function(res){
-        $('#commentModal .modal-body').html(res);
+        $('#comment-modal .modal-body').html(res);
       }});
 
+    $(".close-comment").click(function(){
+      history.go(0);
+    });  
   });
 
 
@@ -35,17 +38,19 @@
       }});
   });
 
-  $(".edit-comment").submit(function(e) {
+
+
+  $("#edit-comment-form").submit(function(e) {
     e.preventDefault(); 
 
     var form = $(this);
     var actionUrl = form.attr('action');
     
-    $.ajax({type: "POST",url: actionUrl, data: form.serialize(), success: function(data)
-        {
-          $('.edit-comment-form').append(data);
-          form[0].reset()
-        }
+    $.ajax({type: "PATCH",url: actionUrl, data: form.serialize(), success: function(data)
+      {
+        $('#edit-form').replaceWith(data);
+        form[0].reset();
+      }
     });
 });
 

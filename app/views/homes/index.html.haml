@@ -1,6 +1,6 @@
 = render "shared/post_nav"
 
-.posts-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center#home{ style: "gap: 30px" }
+.posts-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center#post{ style: "gap: 30px" }
   - @posts.each do |post|
     .post-container.d-flex.flex-column.p-3.border.rounded.shadow-sm.w-100{ style: "gap: 15px; max-width: 590px;" }
       .user-detail.d-flex.align-items-center.border.rounded.shadow-sm.w-100{ style: "gap: 10px;" }
@@ -21,18 +21,18 @@
 
       = render "posts/post_action", post: post
 
-.modal.fade#commentModal
+.modal.fade#comment-modal
   .modal-dialog.modal-lg
     .modal-content
       .modal-header
         %h4.modal-title All Comments
-        %button.btn-close{ type: "button", "data-bs-dismiss" => "modal" }
+        %button.btn-close.close-comment{ type: "button", "data-bs-dismiss" => "modal" }
 
       .modal-body
         -# comment data here
 
       .modal-footer
-        %button.btn.btn-danger{ type: "button", "data-bs-dismiss" => "modal" } Close
+        %button.btn.btn-danger.close-comment{ type: "button", "data-bs-dismiss" => "modal" } Close
 
 = will_paginate @posts
 

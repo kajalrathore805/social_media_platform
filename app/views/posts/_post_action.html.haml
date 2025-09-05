@@ -1,7 +1,7 @@
 .post-action.mt-2
   = render "posts/like_button", post: post 
   
-  = link_to post_comments_path(post),class:"cbtn", data: { turbo_method: :get,bs_toggle: "modal", bs_target: "#commentModal"} do 
+  = link_to post_comments_path(post), data: { turbo_method: :get,bs_toggle: "modal", bs_target: "#comment-modal"} do 
     %i.bi.bi-chat.text-decoration-none.text-dark{style:"padding-left: 58px;"}
   
 

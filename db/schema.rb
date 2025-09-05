@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_29_055420) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_05_102450) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,6 +65,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_055420) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "messages", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
+    t.string "message_body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
   create_table "notifications", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "recepient_id", null: false
     t.bigint "actor_id", null: false
@@ -106,6 +116,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_055420) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "users", column: "receiver_id"
+  add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "notifications", "users", column: "recepient_id"
   add_foreign_key "posts", "users"

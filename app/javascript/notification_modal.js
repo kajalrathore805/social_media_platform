@@ -7,6 +7,9 @@
     $.ajax({url: action_url, type: method, success: function(res){
       $('#notification-modal .modal-body').html(res);
     }});
+    $(".close-notification").click(function(){
+      history.go(0);
+    });  
   });
 
 
@@ -15,8 +18,9 @@
     target = $(this)
     var action_url = target.attr('href')
      var method = target.data('method')
-
+     
     $.ajax({url: action_url, type: method, success: function(res){
        target.closest('.notification').remove();
     }});
+
   });

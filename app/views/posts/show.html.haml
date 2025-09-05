@@ -32,18 +32,18 @@
             = link_to "Delete" , post_path(@post), data: { turbo_method: :delete,turbo_confirm: "Are you sure?"},class:'btn btn-secondary'
         -else      
         
-.modal.fade#myModal
+.modal.fade#comment-modal
   .modal-dialog.modal-lg
     .modal-content
       .modal-header
         %h4.modal-title All Comments
-        %button.btn-close{"type" => "button", "data-bs-dismiss" => "modal"}
+        %button.btn-close.close-comment{"type" => "button", "data-bs-dismiss" => "modal"}
 
       .modal-body
         -# comment data here
 
       .modal-footer
-      %button.btn.btn-danger{"type" => "button", "data-bs-dismiss" => "modal"} Close
+        %button.btn.btn-danger.close-comment{"type" => "button", "data-bs-dismiss" => "modal"} Close
 
     
 
