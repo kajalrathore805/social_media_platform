@@ -33,7 +33,7 @@ gem "bootsnap", require: false
     # Gemfile
 gem 'mysql2'
 gem 'ransack'
-gem 'will_paginate', '~> 3.3'
+gem 'will_paginate', '~> 4.0'
 
 # gem 'jquery-rails'
 # gem 'bootstrap', '~> 5.3'
