@@ -32,7 +32,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
     # Gemfile
 gem 'mysql2'
-
+gem 'ransack'
 gem 'will_paginate', '~> 3.3'
 
 # gem 'jquery-rails'

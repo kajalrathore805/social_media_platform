@@ -1,7 +1,17 @@
-
 = render :partial =>  "shared/post_nav"
-%h2 Send message to #{@receiver.name}
+= render :partial => "layouts/flash" 
+.container.d-flex.justify-content-center.mt-5
+  .p-4.border.rounded.shadow.bg-white{ style:"min-width: 450px;"}
+    %h3.text-center Chat with:  #{@user.name}
 
-= form_with model: @message, url: messages_path(receiver_id: @receiver.id), local: true do |form|
-  = form.text_area :message_body, placeholder: "Type your message...", rows: 4, class: "form-control"
-  = form.submit "Send", class: "btn btn-success mt-2"
+    .messages-list
+      - @messages.each do |message|
+        .message
+          %strong= message.sender.name
+          %p= message.message_body
+
+    = form_with model: @message, url: messages_path(receiver_id: @user.id), local: true do |form|
+
+      = form.hidden_field :sender_id, value:@current_user.id
+      = form.text_area :message_body, placeholder: "Type your message...", rows: 4, class: "form-control"
+      = form.submit "Send", class: "btn btn-success mt-2"

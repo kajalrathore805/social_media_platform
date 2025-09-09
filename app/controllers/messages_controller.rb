@@ -1,36 +1,28 @@
 class MessagesController < ApplicationController
-  before_action :set_receiver, only: [:new, :create, :index]
-
-  def index
-    @messages = Message.where(
-      "(sender_id = :current_user AND receiver_id = :receiver) OR (sender_id = :receiver AND receiver_id = :current_user)",
-      current_user: current_user.id, receiver: @receiver.id
-    ).order(created_at: :asc)
-  end
+  before_action :set_user, only: [:new, :create]
 
   def new
-    @message = Message.new(sender_id: current_user.id, receiver_id: @receiver.id)
+    @messages = Message.where(receiver_id: @user.id,sender_id: current_user.id)
+    @message = Message.new
   end
 
   def create
-    @message = Message.new(message_params)
-    @message.sender_id = current_user.id
-    @message.receiver_id = @receiver.id
+    @message = @user.messages.new(message_params)
 
     if @message.save
-      redirect_to messages_path(receiver_id: @receiver.id), notice: "Message sent."
+      redirect_to new_message_path(receiver_id: @user.id)
     else
-      render :new, alert: "Failed to send message."
+      flash[:alert] = "Message not create"
     end
+  end
+
+  def set_user
+    @user = User.find(params[:receiver_id])
   end
 
   private
 
-  def set_receiver
-    @receiver = User.find(params[:receiver_id])
-  end
-
   def message_params
-    params.require(:message).permit(:message_body)
+    params.require(:message).permit(:sender_id, :message_body)
   end
 end

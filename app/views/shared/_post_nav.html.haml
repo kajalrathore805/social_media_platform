@@ -9,9 +9,11 @@
         %a{ href: "/homes" } Home
       %li
         %a{ href: "/posts/new" } Create post
+      
       %li
-        / %a{ href: "/notifications" }
-
+      = link_to "#search-modal", data: { bs_toggle: "modal", bs_target:'#search-modal'} do 
+        %i.bi.bi-search.text-decoration-none.text-light
+      %li  
       = link_to notifications_path,  data: { bs_toggle: "modal",bs_target:'#notification-modal'} do 
         %i.bi.bi-bell.text-decoration-none.text-light
         %sup= @current_user.notifications.count
@@ -34,3 +36,36 @@
         
       .modal-footer
         %button.btn.btn-danger.close-notification{ type: "button", "data-bs-dismiss" => "modal" } Close
+
+
+
+.modal.fade#search-modal
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %h4.modal-title 
+        %button.btn-close{ type: "button", "data-bs-dismiss" => "modal" }
+
+      .modal-body
+        %div
+          %form#my-form
+            %input#my-input{type: 'text', placeholder: 'Search....', onclick:"myFunction()" }
+            %button.btn.btn-sm.btn-success{ type: "button", id: "search-button" } Search
+          %br
+          %br
+        %nav
+          .nav.nav-tabs#nav-tab{"role" => "tablist"}
+            %button.nav-link.active#nav-accounts-tab{ "type" => "button","data-bs-toggle" => "tab","data-bs-target"=>"#nav-accounts","type" => "button", "role" => "tab","aria-controls" => "nav-accounts", "aria-selected" => "true"
+            }
+              Accounts
+            %button.nav-link#nav-posts-tab{"type" => "button", "data-bs-toggle" => "tab", "data-bs-target" => "#nav-posts","type" => "button", "role" => "tab", "aria-controls" => "nav-posts", "aria-selected" => "false"
+            }
+              Posts
+        .tab-content#nav-tabContent
+          .tab-pane.fade.show.active#nav-accounts{"role" => "tabpanel", "aria-labelledby" =>"nav-accounts-tab"
+          }
+          .tab-pane.fade.show#nav-posts{"role" => "tabpanel", "aria-labelledby" =>"nav-posts-tab"
+          }      
+               
+      .modal-footer
+        %button.btn.btn-danger{ type: "button", "data-bs-dismiss" => "modal" } Close

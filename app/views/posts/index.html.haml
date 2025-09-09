@@ -1,7 +1,9 @@
 
-= render :partial =>  "shared/post_nav"
+/ = render :partial =>  "shared/post_nav"
+
+
 -if @posts.present? 
-  .posts-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center{ style:"gap: 30px"}
+  .tab.posts-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center#nav-posts-tab{ style:"gap: 30px"}
     - @posts.each do |post|
       .post-container.d-flex.flex-column.p-3.border.rounded.shadow-sm.w-100{style:"gap: 15px; max-width: 590px;"}
         .user-detail.d-flex.align-items-center.border.rounded.shadow-sm.w-100{ style:"gap: 10px"}      
@@ -26,4 +28,4 @@
 
     %p 
       No post here
-= will_paginate @posts
+/ = will_paginate @posts

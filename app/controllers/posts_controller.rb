@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   # before_action :set_post, only: [:show, :like, :unlike]
   def index
-    @posts = @current_user.posts.paginate(page: params[:page], per_page: 2)
+    search = params[:search]
+    @posts = Post.where("title LIKE ?", "%#{search}%")
   end
 
   def show

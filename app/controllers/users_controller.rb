@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   skip_before_action :auhenticate_user, only: [:create, :new]
 
   def index
-    @users = User.where.not(id: current_user.id)
+    search = params[:search]
+    @users = User.where("name LIKE ?", "%#{search}%")
   end
 
   def show

@@ -30,10 +30,10 @@
   $(document).on('click',".edit-comment", function(e){
     e.preventDefault();
     target = $(this)
-    delete_url = target.attr('href')
+    action_url = target.attr('href')
 
     var method = target.attr('data-turbo-method')
-      $.ajax  ({url: delete_url, type: method, success: function(res){
+      $.ajax  ({url: action_url, type: method, success: function(res){
         target.closest('.comment').html(res);
       }});
   });
@@ -52,8 +52,9 @@
         form[0].reset();
       }
     });
-});
+  });
 
+  
 
 
   

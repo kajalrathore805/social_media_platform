@@ -14,3 +14,5 @@ $(document).on('click', ".follow-btn, .unfollow-btn", function(e){
     }
   });
 });
+
+

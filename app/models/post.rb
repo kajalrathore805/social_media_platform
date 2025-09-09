@@ -14,6 +14,15 @@ class Post < ApplicationRecord
   def already_liked?(c_user)
     likes.exists?(user_id: c_user.id)
   end
+
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['title LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
+
   
   def notify_post_owner
     self.user.follower_users.each do |follower|
