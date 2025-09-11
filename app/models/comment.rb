@@ -11,8 +11,10 @@ class Comment < ApplicationRecord
   end
 
   after_create_commit :notify_post_owner
-   def notify_post_owner
-    NotificationCreator.new(self, self.post.user, user).call
+
+
+  def notify_post_owner
+    NotifyUserJob.perform_later(self, self.post.user, user, "commented on your post")
   end
 end
 

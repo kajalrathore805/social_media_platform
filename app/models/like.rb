@@ -10,6 +10,6 @@ class Like < ApplicationRecord
   after_create_commit :notify_post_owner
 
   def notify_post_owner
-    NotificationCreator.new(self, self.post.user, user).call
+    NotifyUserJob.perform_later(self, self.post.user, user, "liked your post")
   end
 end

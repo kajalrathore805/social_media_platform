@@ -5,28 +5,25 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   has_many :notifications, as: :notifiable,dependent: :destroy
+  
   accepts_nested_attributes_for :comments, :likes
+
   validates :title, :body, presence: true
+
   before_validation :normalize_title, on: :create
+
   validates :body,length: { minimum: 10 }
-  after_create_commit :notify_post_owner
+
+   after_create_commit :notify_post_owner
 
   def already_liked?(c_user)
     likes.exists?(user_id: c_user.id)
   end
 
-  def self.search(search)
-    if search
-      find(:all, :conditions => ['title LIKE ?', "%#{search}%"])
-    else
-      find(:all)
-    end
-  end
-
   
   def notify_post_owner
     self.user.follower_users.each do |follower|
-      NotificationCreator.new(self, follower, self.user).call
+      NotifyUserJob.perform_later(self, follower, self.user, "created a new post")
     end
   end
   private

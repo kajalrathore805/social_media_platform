@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_one_attached :image
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments,dependent: :destroy
 
   has_many :notifications,foreign_key: :recepient_id, class_name: "Notification", dependent: :destroy
   has_many :messages,foreign_key: :receiver_id, class_name: "Message", dependent: :destroy

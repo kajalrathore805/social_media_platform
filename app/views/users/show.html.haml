@@ -36,6 +36,13 @@
       %span Phone:
       = @user.phone
 
+    .mb-3.list-inline.text-center  
+      -if @user.id != @current_user.id  
+        %span.list-inline-item
+          = render 'users/follow_button', user: @user  
+        %span.list-inline-item 
+          = link_to "Message",new_message_path(receiver_id: @user.id), class:'btn btn-sm btn-outline-secondary'
+
     .mb-3.list-inline.text-center
       -if @user.id == @current_user.id
         %span.list-inline-item
@@ -45,5 +52,3 @@
           = link_to "Delete" , user_path(@user), data: { turbo_method: :delete,turbo_confirm: "Are you sure?"},class:'btn btn-secondary'
         %span.list-inline-item
           = link_to "Log out", session_path(@user), data:  { turbo_method: :delete,  turbo_confirm: "Are you sure?" },class: "btn btn-secondary inline"
-
-

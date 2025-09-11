@@ -4,7 +4,7 @@ $(document).on('click', ".follow-btn, .unfollow-btn", function(e){
   const target = $(this);
   const urls = target.attr('href');
   const method = target.attr('data-turbo-method');
-  const userId = target.closest('.user-action').data('user-id'); // get user ID
+  const userId = target.closest('.user-action').data('user-id'); 
 
   $.ajax({
     url: urls,
