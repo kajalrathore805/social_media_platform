@@ -1,12 +1,17 @@
 class MessagesController < ApplicationController
   before_action :set_user, only: [:new, :create]
 
+
   def new
-    @messages = Message.where(receiver_id: @user.id,sender_id: current_user.id)
+    @messages = Message.where(
+      "(sender_id = :current_user AND receiver_id = :receiver) OR (sender_id = :receiver AND receiver_id = :current_user)",
+      current_user: current_user.id, receiver: @user.id
+    ).order(created_at: :asc)
     @message = Message.new
   end
 
   def create
+    
     @message = @user.messages.new(message_params)
 
     if @message.save

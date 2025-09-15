@@ -6,7 +6,7 @@
         %span{ style: "float: left;" }
           %b
             = link_to notification.actor.name, user_path(notification.actor), class: "text-decoration-none text-dark"
-        %span{style: "text-align: center;"}
+        %span{style: "text-align: center; padding-left: 50px;"}
           = perform_action(notification)
         %span
           = link_to  delete_notification_path(id: notification.id),class:"delete-notification", data: { method: :delete, turbo: false } do

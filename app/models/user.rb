@@ -21,6 +21,8 @@ class User < ApplicationRecord
  	before_validation :normalize_name, on: :create
   after_validation :normalize_email
 
+  # scope :user_id, -> {where(id: 1..5)}
+
   validates :password, confirmation: true
 
  	validate :password_complexity
@@ -38,6 +40,7 @@ class User < ApplicationRecord
       errors.add :password, "must include at least one lowercase letter, one uppercase letter, one digit, and be a minimum of 5 characters."
     end
   end
+
 
   def self.search(search)
     if search
