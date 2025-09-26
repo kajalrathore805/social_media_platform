@@ -1,0 +1,15 @@
+= render :partial =>  "shared/post_nav"
+
+
+
+.container.mt-3
+  %h3.text-center All Users
+  %table.table.table-striped.table-condensed.table-data.data-tabled#users-datatable
+    %thead
+      %tr
+        %th Id
+        %th Name
+        %th Email
+        %th Contact
+    %tbody
+= render partial: "data_tables_configs/fetch_by_users"

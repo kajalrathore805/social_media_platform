@@ -3,8 +3,20 @@ class UsersController < ApplicationController
   skip_before_action :auhenticate_user, only: [:create, :new]
 
   def index
-    search = params[:search]
-    @users = User.where("name LIKE ?", "%#{search}%")
+    if params[:filter_by_user_id].present?
+      @users = User.where(id: params[:filter_by_user_id])
+    else
+      @users = User.all
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
+
+    # @all_users = User.paginate(page: params[:page], per_page: 5)
+    # search = params[:search]
+    # @users = User.where("name LIKE ?", "%#{search}%")
   end
 
   def show

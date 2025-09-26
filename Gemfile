@@ -26,6 +26,13 @@ gem 'byebug'
 gem 'haml'
 gem "noticed"
 
+# gem 'ajax-datatables-rails'
+# gem 'jquery-datatables'
+gem 'jquery-turbolinks'
+gem 'jb'
+gem 'json'
+gem 'jquery-rails'
+
 gem 'sidekiq'
 gem 'redis', '~> 4.2'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -67,3 +74,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "jquery", "~> 0.0.1"

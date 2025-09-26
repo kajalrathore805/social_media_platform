@@ -1,0 +1,18 @@
+:javascript
+  var data = [
+    {data: "id"},
+    {data: "name"},
+    {data: "email"},
+    {data: "phone"}
+  ];
+  $("#users-datatable").dataTable({
+    serverSide: true,
+    processing: true,
+    pagingType: 'numbers',
+    pageLengh: 10,
+    ajax: { 
+      url: '/datatables/users',
+      dataType: 'json'
+    },
+    columns: data
+  })    

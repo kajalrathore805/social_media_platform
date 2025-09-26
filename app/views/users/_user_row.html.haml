@@ -1,0 +1,7 @@
+%div.loader#loader-spinner{style: 'display:none;'} 
+  - users.each do |user|
+    %tr 
+      %td= user.id 
+      %td= user.name 
+      %td= user.email 
+      %td= user.phone

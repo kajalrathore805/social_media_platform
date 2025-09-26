@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   member  do
     get 'show_user'  
     end
- end
+  end
+
+  namespace :datatables do
+    resources :users, only: [:index]
+  end
 
   resources :posts do
     member  do
@@ -29,9 +33,6 @@ Rails.application.routes.draw do
   post "follow", to: "follows#create"
   delete "unfollow", to: "follows#destroy"
 
-  # get "follow_users", to: "users#follow_users"
-  # get "following", to: "users#following"
-  
   get "user_follow_users", to: "follows#user_follow_users"
   get "user_following_users", to: "follows#user_following_users"
   get "user_posts", to: "posts#user_posts"

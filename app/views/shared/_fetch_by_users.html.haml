@@ -1,0 +1,20 @@
+:javascript
+  $('#users-datatable').DataTable({
+    serverSide: true,
+    processing: true,
+    ajax: {
+      url: '/datatables/users',
+      dataSrc: '',
+      dataType: 'json',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Accept', 'application/json');
+      }
+    },
+    columns: [
+      {data: "id"},
+      {data: "name"},
+      {data: "email"},
+      {data: "phone"}
+    ]
+  });
+

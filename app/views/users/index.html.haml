@@ -1,14 +1,48 @@
-/ = render :partial =>  "shared/post_nav"
 
-.tab.users-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center#nav-accounts-tab{ style: "gap: 30px;max-width: 590px;" }
-  - @users.each do |user|
-    .user-detail.d-flex.align-items-center.border.rounded.shadow-sm.w-100{ style: "gap: 10px;" }
-      .user-image.m-2
-        = link_to user_path(user) do
-          - if user.image.attached?
-            = image_tag user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '50', height: '50'
-          - else
-            %p no image
-      .user-name.fw-semibold{ style: "flex-grow: 1" }
-        = link_to user.name, user_path(user), class: 'text-decoration-none text-dark'
+= render :partial =>  "shared/post_nav"
+%body{ style: "margin:0;"}
+  .container.mt-3
+    %h3.text-center All Users
+    %div.filter_by_name{style: 'margin-bottom: 20px ; float: right'}
+      - select_options = options_for_select @users.map {|user| [user.name, user.id]}
+      = select_tag 'filter_by_name', select_options,id: 'filter_by_name', include_blank: 'All users',data: { index_url: users_path(format: 'js')}
+     
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Id
+          %th Name
+          %th Email
+          %th Contact
+      %tbody#user_table
+        = render partial: "user_row", locals: {users: @users}
+/ = will_paginate @all_users
+
+
+:javascript
+  $(document).ready(function(){
+    $("#filter_by_name").on("change", function(){
+      $("#loader-spinner").show();
       
+      let url = $(this).data('indexUrl') + '?filter_by_user_id=' + $(this).val();
+      
+      $.ajax({
+        url: url,
+        dataType: 'script'
+      });
+    });
+  });
+
+
+
+ 
+
+
+/ .tab.posts-container.d-flex.flex-column.mt-3.p-3.container-sm.align-items-center#nav-accounts-tab{ style: "gap: 30px" }
+/   - @users.each do |user|
+/     .user-detail.d-flex.align-items-center.border.rounded.shadow-sm.w-100{ style: "gap: 10px;max-width: 590px;" }
+/       .user-image.m-2
+/         = link_to user_path(user.id) do
+/           = image_tag user.image.variant(resize_to_limit: [200,200]), class: 'rounded-circle', width: '50', height: '50'
+/       .user-name.fw-semibold{ style: "flex-grow: 1" }
+/         = link_to user.name, user_path(user.id), class: 'text-decoration-none text-dark'

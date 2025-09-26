@@ -1,0 +1,13 @@
+json = {} 
+json[:draw] = params[:draw].to_i
+json[:recordsTotal] = @total_count
+json[:recordsFiltered] = @total_count
+json[:data] =  @users.map { |u|
+  {
+    id: u.id,
+    name: u.name,
+    email: u.email,
+    phone: u.phone
+  }
+}
+json
